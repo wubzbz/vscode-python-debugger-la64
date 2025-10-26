@@ -1,22 +1,22 @@
 {
     "name": "debugpy",
-    "displayName": "Python Debugger",
+    "displayName": "Python Debugger for LoongArch",
     "description": "Python Debugger extension using debugpy.",
     "version": "2025.15.0-dev",
-    "publisher": "ms-python",
+    "publisher": "wubzbz",
     "enabledApiProposals": [
         "portsAttributes",
         "debugVisualization",
         "contribViewsWelcome"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/Microsoft/vscode-python-debugger",
+    "homepage": "https://github.com/wubzbz/vscode-python-debugger-la64",
     "repository": {
         "type": "git",
-        "url": "https://github.com/microsoft/vscode-python-debugger.git"
+        "url": "https://github.com/wubzbz/vscode-python-debugger-la64.git"
     },
     "bugs": {
-        "url": "https://github.com/Microsoft/vscode-python-debugger/issues"
+        "url": "https://github.com/wubzbz/vscode-python-debugger-la64/issues"
     },
     "icon": "icon.png",
     "keywords": [
