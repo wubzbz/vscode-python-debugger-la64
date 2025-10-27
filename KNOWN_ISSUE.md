@@ -1,4 +1,4 @@
-# 生产环境测试清单
+# Production Environment Test Checklist
 
 ## 🎯 Basic Tests
 
@@ -90,7 +90,7 @@ function_a()
 ### **OUTPUT**
 
 - [] no error
-- [] DAP server path correct
+- [x] DAP server path correct
 - [] proposed api
 
 ```

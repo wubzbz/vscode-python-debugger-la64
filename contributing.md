@@ -1,3 +1,9 @@
+# Contributing
+
+### How to build it on your LoongArch64 machine?
+
+See [Build Guide for LoongArch64](./BUILD_LA64.md).
+
 ## Getting Started
 
 Follow the steps below for setup:
