@@ -2,8 +2,8 @@
     "name": "debugpy",
     "displayName": "Python Debugger for LoongArch",
     "description": "Python Debugger extension using debugpy.",
-    "version": "2025.15.0-dev",
-    "publisher": "wubzbz",
+    "version": "2025.14.1",
+    "publisher": "ms-python",
     "enabledApiProposals": [
         "portsAttributes",
         "debugVisualization",
