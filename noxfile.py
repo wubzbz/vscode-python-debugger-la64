@@ -115,6 +115,37 @@ def update_build_number(session: nox.Session) -> None:
     package_json_path.write_text(json.dumps(package_json, indent=4), encoding="utf-8")
 
 
+@nox.session()
+def update_test_version(session: nox.Session) -> None:
+    """Test build: use generated build number with -dev"""
+    session.log("Update a test version...")
+
+    update_script_path = pathlib.Path(__file__).parent / "build" / "update_ext_version.py"
+    session.run("python", update_script_path)
+
+
+@nox.session()
+def update_release_version(session: nox.Session) -> None:
+    """Release build: use current/given build number without suffix"""
+    session.log("Update a release version...")
+
+    # check if build ID provided
+    build_id = None
+    if session.posargs:
+        try:
+            build_id = int(session.posargs[0])
+            session.log(f"with build ID: {build_id}")
+        except ValueError:
+            session.error("build ID must be integer!")
+
+    update_script_path = pathlib.Path(__file__).parent / "build" / "update_ext_version.py"
+
+    if build_id is not None:
+        session.run("python", update_script_path, "--release", "--for-publishing", f"--build-id={build_id}")
+    else:
+        session.run("python", update_script_path, "--release", "--for-publishing")
+
+
 def _get_pypi_package_data(package_name):
     json_uri = "https://pypi.org/pypi/{0}/json".format(package_name)
     # Response format: https://warehouse.readthedocs.io/api-reference/json/#project
