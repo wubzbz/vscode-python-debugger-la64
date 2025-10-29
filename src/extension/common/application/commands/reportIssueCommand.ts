@@ -26,7 +26,7 @@ export async function openReportIssue(): Promise<void> {
 
     const pythonVersion = getRawVersion(interpreter?.version);
     await executeCommand('workbench.action.openIssueReporter', {
-        extensionId: 'ms-python.debugpy',
+        extensionId: 'wubzbz.debugpy', // extension id has been modified
         issueBody: template,
         data: userTemplate.replace('{0}', pythonVersion).replace('{1}', virtualEnvKind),
     });
