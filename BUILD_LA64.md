@@ -93,7 +93,8 @@ pipx run nox --session lint
 npm run test
 ```
 
-> **Note**: On LoongArch64 architecture, the test framework automatically uses the locally installed VSCodium instead of downloading the x86 version of VSCode, which is different from the official extension.
+> [!NOTE]
+> On LoongArch64 architecture, the test framework automatically uses the locally installed VSCodium instead of downloading the x86 version of VSCode, which is different from the official extension.
 
 ### 7. Update Build Number (Optional)
 
