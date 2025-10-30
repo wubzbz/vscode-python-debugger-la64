@@ -111,6 +111,65 @@ This is a security and stability feature of VSCodium/VS Code, ensuring that expe
 - VSCode python extension [Issue #20247](https://github.com/microsoft/vscode-python/issues/20247) and [Issue #20498](https://github.com/microsoft/vscode-python/issues/20498).
 
 
+## 2. Activating extension 'wubzbz.debugpy' failed
+
+- **Status**: Identified - Extension conflict issue
+
+### Symptom
+
+When installing `wubzbz.debugpy` without first uninstalling other debugpy extensions, you may see error messages in the bottom-right notification area:
+
+``` log
+Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' already exists.
+[wubzbz.debugpy]: Cannot register "debugpy.showPythonInlineValues". This property has been registered. 
+[wubzbz.debugpy]: Cannot register "debugpy.debugJustMyCode". This property has been registered. 
+```
+
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+#### Complete Uninstallation and Clean Installation
+
+1. **Uninstall conflicting extensions**:
+   - Open VSCodium
+   - Go to Extensions view (`Ctrl+Shift+X`)
+   - Search for and uninstall any of the following extensions if present:
+     - `ms-python.debugpy` (official Microsoft version)
+     - Any other extension with "debugpy" in its name
+
+2. **Clear extension cache** (**only if** issues persist):
+   - Close VSCodium completely
+   - Navigate to VSCodium's extension directory:
+     - **Linux**: `~/.vscodium/extensions`
+   - Delete any remaining debugpy-related folders
+
+3. **Install wubzbz.debugpy**:
+   - Install the loongarch64-compatible debugpy extension
+   - Restart VSCodium
+
+#### Alternative: Disable Conflicting Extensions
+
+If you need to keep other Python extensions for compatibility reasons:
+
+1. Go to Extensions view (`Ctrl+Shift+X`)
+2. Find conflicting extensions (like `ms-python.python`)
+3. Click the "Disable" button instead of uninstalling
+4. Restart VSCodium, install and enable `wubzbz.debugpy`
+
+### Root Cause
+
+This issue occurs because multiple extensions are trying to register the same commands, settings, and contributions with identical identifiers. VSCodium/VSCode doesn't allow duplicate registrations for:
+
+- **Commands** (like `debugpy.viewOutput`)
+- **Settings** (like `debugpy.debugJustMyCode`)
+
+The official Microsoft debugpy extension (`ms-python.debugpy`) and our loongarch64 port (`wubzbz.debugpy`) both attempt to register identical functionality, causing conflicts during activation.
+
+This is a fundamental limitation of the VSCode extension system - only one extension can own a particular command or setting identifier at a time.
+
+
 <!-- Template
 ## 1. 
 
@@ -119,6 +178,9 @@ This is a security and stability feature of VSCodium/VS Code, ensuring that expe
 ### Symptom
 
 ### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
 
 ### Root Cause
 -->
