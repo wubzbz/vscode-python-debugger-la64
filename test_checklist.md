@@ -16,14 +16,15 @@
 
 ### **breakpoint related**
 
-- [ ] triggered breakpoint
-- [ ] 断点暂停时能查看变量值
-- [ ] inline breakpoint
+- [] triggered breakpoint
+- [] value shown while debugging
+- [] inline breakpoint
 - [] function breakpoint
 - [] data breakpoint
 - [] logpoint
 - [] breakpoint section in RUN AND DEBUG view
 - [x] breakpoint in passed area
+
 
 ## 🔧 Advanced tests
 
@@ -31,20 +32,28 @@
 
 #### debug toolbar
 
-- [ ] **Step Over** (F10) - 单步跳过
-- [ ] **Step Into** (F11) - 单步进入函数
-- [ ] **Step Out** (Shift+F11) - 单步跳出函数
-- [ ] **Continue** (F5) - 继续执行
-- [] restart
-- [] stop
+- [ ] Step Over (F10)
+- [ ] Step Into (F11)
+- [ ] Step Out (Shift+F11)
+- [ ] Continue (F5)
+- [] Restart(Ctrl+Shift+F5)
+- [] Stop(Shift+F5)
 
 #### launch from editor button
 
+- [] debug python file
+- [] debug python file using launch.json
+
 #### launch from RUN AND DEBUG view
+
+- [] play: python debugger
+- [] play: custom debug
+- [] add config
+
 
 #### debug console
 
-- [x] log text print
+- [x] print log text
 - [x] REPL
 
 #### debug sidebar
@@ -61,6 +70,7 @@
 - [ ] 数组/列表内容正确显示
 
 ### **调用堆栈测试**
+
 ```python
 # test_callstack.py
 def function_a():
@@ -79,13 +89,22 @@ function_a()
 
 ### **debug console**
 
+- [] debug in terminal
+- [] 
+- []
 
 ### **commands**
 
+- [] debugpy.command.clearCacheAndReload.title
+- [] debugpy.command.debugInTerminal.title
+- [] debugpy.command.debugUsingLaunchConfig.title
+- [] debugpy.command.reportIssue.title
+- [] debugpy.command.viewOutput.title
+
 ### **settings**
 
-- []
-- [] 
+- [] debugpy.debugJustMyCode.description
+- [] debugpy.showPythonInlineValues.description
 
 ### **OUTPUT**
 
@@ -96,6 +115,11 @@ function_a()
 ```
 [error] [窗口] Extension debugpy CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
 ```
+
+- keypoint: `product.json`
+
+- [VSCode Discussions #899](https://github.com/microsoft/vscode-discussions/discussions/899).
+- [Issue 20247](https://github.com/microsoft/vscode-python/issues/20247) and [Issue 20498](https://github.com/microsoft/vscode-python/issues/20498)
 
 ### **configuration**
 
@@ -131,13 +155,13 @@ function_a()
 
 ## 🐍 Python 特定功能
 
-### **Python 环境测试**
+### **Python env test**
 
 - [ ] 能正确识别系统 Python 解释器
 - [ ] 支持虚拟环境 (venv, conda)
 - [ ] 能切换不同 Python 版本
 
-### **异常处理测试**
+### **Exception handling**
 ```python
 # test_exceptions.py
 def risky_operation():
@@ -157,9 +181,11 @@ except Exception as e:
 - []
 - [] --wait-for-client
 
+
 ## 📁 实际场景测试
 
 ### **多文件项目测试**
+
 ```bash
 project/
 ├── main.py
@@ -168,22 +194,26 @@ project/
 └── tests/
     └── test_basic.py
 ```
+
 - [ ] 跨文件断点工作正常
 - [ ] 模块导入调试正常
 - [ ] 相对路径导入正确解析
 
 ### **multi-threading**
 
+
 ### **Django, Flask, and FastAPI**
+
 
 ### **SSH Remote Debug**
 
 
 ## 🏗️ Platform-specific tests
 
-### **LoongArch64 兼容性**
+### **LoongArch64 compatibility**
 
 - [ ] 插件在 LoongArch64 上稳定运行
-- [ ] 无原生模块兼容性问题
-- [ ] 性能表现正常
-- [ ] 内存使用合理
+- [x] 无原生模块兼容性问题
+    - [x] checked reliables in node_modules: only `keytar` with `.node` -- OK.
+- [ ] normal performance
+- [ ] normal ram usage

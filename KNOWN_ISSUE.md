@@ -107,7 +107,8 @@ This is a security and stability feature of VSCodium/VS Code, ensuring that expe
 
 - [`product.json`](https://github.com/microsoft/vscode/blob/main/product.json) of VS Code and [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) of VS Codium.
     - `extensionEnabledApiProposals` is not defined in [VS Code repository](https://github.com/microsoft/vscode/tree/main)'s `product.json` file, but it actually exists in the official distributions you downloaded. Check `resources/app/product.json` in where you installed a Microsoft VSCode to verify it.
-- Issues
+- [VSCode Discussions #899](https://github.com/microsoft/vscode-discussions/discussions/899).
+- VSCode python extension [Issue #20247](https://github.com/microsoft/vscode-python/issues/20247) and [Issue #20498](https://github.com/microsoft/vscode-python/issues/20498).
 
 
 <!-- Template
