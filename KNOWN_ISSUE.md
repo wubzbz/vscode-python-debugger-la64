@@ -139,15 +139,16 @@ Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' alrea
      - `ms-python.debugpy` (official Microsoft version)
      - Any other extension with "debugpy" in its name
 
-2. **Clear extension cache** (**only if** issues persist):
+2. **Install wubzbz.debugpy**:
+   - Install the loongarch64-compatible debugpy extension
+   - Restart VSCodium
+
+3. **Clear extension cache** (**only if** issues persist):
    - Close VSCodium completely
    - Navigate to VSCodium's extension directory:
      - **Linux**: `~/.vscodium/extensions`
    - Delete any remaining debugpy-related folders
-
-3. **Install wubzbz.debugpy**:
-   - Install the loongarch64-compatible debugpy extension
-   - Restart VSCodium
+   - Repeat Step 2
 
 #### Alternative: Disable Conflicting Extensions
 
