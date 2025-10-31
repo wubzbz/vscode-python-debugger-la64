@@ -35,6 +35,48 @@
 				"npm: watch-tests"
 			],
 			"problemMatcher": []
+		},
+		{
+			"label": "bash-npm-watch",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-l",
+				"-c",
+				"npm run watch"
+			],
+			"problemMatcher": "$ts-webpack-watch",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never",
+				"group": "watchers"
+			},
+			"group": "build"
+		},
+		{
+			"label": "bash-npm-watch-tests",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-l", 
+				"-c",
+				"npm run watch-tests"
+			],
+			"problemMatcher": "$tsc-watch",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never",
+				"group": "watchers"
+			},
+			"group": "build"
+		},
+		{
+			"label": "tasks: bash-watch-tests",
+			"dependsOn": [
+				"bash-npm-watch",
+				"bash-npm-watch-tests"
+			],
+			"problemMatcher": []
 		}
 	]
 }
