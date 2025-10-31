@@ -171,6 +171,74 @@ The official Microsoft debugpy extension (`ms-python.debugpy`) and our loongarch
 This is a fundamental limitation of the VSCode extension system - only one extension can own a particular command or setting identifier at a time.
 
 
+## 3. 'npm: command not found' During Debugging Extension
+
+- **Status**: Resolved
+
+### Symptom
+
+When attempting to debug this extension using the original [`launch.json`](https://github.com/microsoft/vscode-python-debugger/blob/main/.vscode/launch.json) and [`tasks.json`](https://github.com/microsoft/vscode-python-debugger/blob/main/.vscode/tasks.json) configurations, the debugging process fails with the error:
+
+```
+*  Executing task: npm run watch 
+
+/usr/bin/bash: line 1: npm: command not found
+
+*  The terminal process "/usr/bin/bash '-c', 'npm run watch'" failed to start (exit code: 127).
+```
+
+Or something like this
+
+```
+*  Executing task: npm run watch 
+
+npm: command not found
+
+*  Terminal process terminated with exit code: 127.
+```
+
+This occurs even though npm commands work correctly in the terminal. The preLaunchTask fails to execute because the npm command cannot be found in the task execution environment.
+
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+The solution involved modifying both `tasks.json` and `launch.json` to ensure proper environment loading:
+
+**In [`tasks.json`](./.vscode/tasks.json):**
+- Add `shell` type tasks instead of direct `npm` type tasks
+- Use `bash -l -c` command structure to run npm scripts
+- Create new task labels: `bash-npm-watch` and `bash-npm-watch-tests`
+- Update dependency chains to use the new bash-wrapped tasks
+
+**In [`launch.json`](./.vscode/launch.json):**
+- Add new debug configurations: "Bash Run Extension" and "Bash Unit Tests"  
+- Update `preLaunchTask` references to point to the new bash-wrapped tasks
+- Keep original configurations for reference, but use the new bash-based ones for actual debugging
+
+**Usage:**
+- Use "Bash Run Extension" configuration instead of "Run Extension" for debugging the main extension
+- Use "Bash Unit Tests" configuration instead of "Unit Tests" for running tests
+- The new configurations ensure proper environment setup before executing npm commands
+
+### Root Cause
+
+The issue stems from how nvm manages Node.js environments and how VS Code executes tasks:
+
+**nvm Installation Method:**
+
+nvm is typically installed by adding initialization scripts to `~/.bashrc`. These scripts set up environment variables (PATH, NVM_DIR) and shell functions. And nvm operates as a shell function rather than a standalone binary.
+
+**Original Configuration Failure:**
+
+VS Code tasks execute in a non-login shell by default, but non-login shells do not automatically source `~/.bashrc`. Thus, without `.bashrc` being sourced, nvm initialization doesn't occur, which explains why the npm command remains unavailable in the task execution context.
+
+The solution used `bash -l` (login shell) that forces the loading of user profile scripts including `~/.bashrc`. This ensures the task execution environment matches the interactive terminal environment. The `-c` parameter allows passing the npm command to the login shell.
+
+This approach maintains nvm's environment setup while working within VS Code's task execution model.
+
+
 <!-- Template
 ## 1. 
 

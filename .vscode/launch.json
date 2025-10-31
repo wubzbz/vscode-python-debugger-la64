@@ -32,6 +32,35 @@
             ],
             "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "preLaunchTask": "tasks: watch-tests"
-        }
+        },
+        // Explicitly use login shell in order to load ~/.bashrc
+        {
+            "name": "Bash Run Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js", "!${workspaceFolder}/**/node_modules**/*"],
+            "preLaunchTask": "bash-npm-watch",
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 2
+            }
+        },
+        {
+            "name": "Bash Unit Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "./out/test/**/*.unit.test.js",
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--extensionTestsPath=${workspaceFolder}/out/test/unittest/index",
+                //"--grep", "<suite name>",
+                "--timeout=300000"
+            ],
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "preLaunchTask": "tasks: bash-watch-tests"
+        },
     ]
 }
