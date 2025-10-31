@@ -177,7 +177,7 @@ This is a fundamental limitation of the VSCode extension system - only one exten
 
 ### Symptom
 
-When attempting to debug this extension using the original [`launch.json`]() and [`tasks.json`]() configurations, the debugging process fails with the error:
+When attempting to debug this extension using the original [`launch.json`](https://github.com/microsoft/vscode-python-debugger/blob/main/.vscode/launch.json) and [`tasks.json`](https://github.com/microsoft/vscode-python-debugger/blob/main/.vscode/tasks.json) configurations, the debugging process fails with the error:
 
 ```
 *  Executing task: npm run watch 
