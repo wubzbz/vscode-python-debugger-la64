@@ -139,7 +139,7 @@ Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' alrea
      - `ms-python.debugpy` (official Microsoft version)
      - Any other extension with "debugpy" in its name
 
-2. **Install wubzbz.debugpy**:
+2. **Install Python Debugger for LoongArch (wubzbz.debugpy)**:
    - Install the loongarch64-compatible debugpy extension
    - Restart VSCodium
 
