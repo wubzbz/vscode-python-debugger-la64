@@ -20,7 +20,8 @@ Or more specifically:
 [error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 
 'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
 Its package.json#enabledApiProposals-property declares:  but NOT portsAttributes.
-The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
+The missing proposal MUST be added and you must start in extension development
+mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
 ```
 
 ### Resolution Methods
@@ -247,6 +248,8 @@ This approach maintains nvm's environment setup while working within VS Code's t
 
 - **Status**: Fixed upstream (refer to VSCode Pull Request [#271707](https://github.com/microsoft/vscode/pull/271707)). Awaiting integration into subsequent VSCode releases.
 
+<img width="284" height="187" alt="图片" src="https://github.com/user-attachments/assets/650f4745-396f-4bf8-93fe-8203c0fc7784" />
+
 ### Symptom
 
 When the display language is set to a non-English language in VSCode/VSCodium:
@@ -255,7 +258,8 @@ When the display language is set to a non-English language in VSCode/VSCodium:
 2.  If no `launch.json` file exists in the current workspace, a welcome page with a "Create a launch.json" button is displayed.
 3.  Clicking this button fails with an error in the OUTPUT panel:
     ``` log
-    [error] [窗口] command 'command:workbench.action.debug.configure' not found: Error: command 'command:workbench.action.debug.configure' not found
+    [error] [窗口] command 'command:workbench.action.debug.configure' not found:
+    Error: command 'command:workbench.action.debug.configure' not found
     ```
     This prevents the creation of the essential `launch.json` file, which is crucial for configuring the debug environment, thus blocking debugging functionality.
 
@@ -273,7 +277,7 @@ When the display language is set to a non-English language in VSCode/VSCodium:
     - Then choose "Python Debugger: Current File" (or your preferred debug configuration).
     - This will automatically generate a valid launch.json file in your project's .vscode folder.
 
-
+<img width="370" height="276" alt="图片" src="https://github.com/user-attachments/assets/c25c31dc-2183-46f0-9c88-f414d421278d" />
 
 3.  **Wait for the Update**: Since a fix has been merged upstream, this issue should be resolved in future VSCode updates. Regularly update your VSCodium.
 
