@@ -9,12 +9,16 @@
 In the OUTPUT panel (or bottom-right notification message), you may see error messages like:
 
 ``` log
-[error] [Window] Extension 'wubzbz.debugpy' CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
+[error] [Window] Extension 'wubzbz.debugpy' CANNOT USE these API proposals 
+'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in 
+extension development mode or use the --enable-proposed-api command line flag
 ```
 
 Or more specifically:
+
 ``` log
-[error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
+[error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 
+'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
 Its package.json#enabledApiProposals-property declares:  but NOT portsAttributes.
 The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
 ```
@@ -173,7 +177,7 @@ This is a fundamental limitation of the VSCode extension system - only one exten
 
 ## 3. 'npm: command not found' During Debugging Extension
 
-- **Status**: Resolved
+- **Status**: Resolved in [Pull Request #4](https://github.com/wubzbz/vscode-python-debugger-la64/pull/4).
 
 ### Symptom
 
@@ -237,6 +241,50 @@ VS Code tasks execute in a non-login shell by default, but non-login shells do n
 The solution used `bash -l` (login shell) that forces the loading of user profile scripts including `~/.bashrc`. This ensures the task execution environment matches the interactive terminal environment. The `-c` parameter allows passing the npm command to the login shell.
 
 This approach maintains nvm's environment setup while working within VS Code's task execution model.
+
+
+## 4. "Create a launch.json" Button Failure in Non-English Environments
+
+- **Status**: Fixed upstream (refer to VSCode Pull Request [#271707](https://github.com/microsoft/vscode/pull/271707)). Awaiting integration into subsequent VSCode releases.
+
+### Symptom
+
+When the display language is set to a non-English language in VSCode/VSCodium:
+
+1.  Navigate to the **Run and Debug** view.
+2.  If no `launch.json` file exists in the current workspace, a welcome page with a "Create a launch.json" button is displayed.
+3.  Clicking this button fails with an error in the OUTPUT panel:
+    ``` log
+    [error] [窗口] command 'command:workbench.action.debug.configure' not found: Error: command 'command:workbench.action.debug.configure' not found
+    ```
+    This prevents the creation of the essential `launch.json` file, which is crucial for configuring the debug environment, thus blocking debugging functionality.
+
+### Resolution Methods
+
+1.  **Switch VSCode Language to English (Temporary Workaround)**:
+    - Open the Command Palette (`Ctrl+Shift+P`)
+    - Execute `Configure Display Language`
+    - Set the `locale` to `"en"`
+    - Restart VSCode. The button should now function correctly
+
+2. **Create `launch.json` via Editor Button**:
+    - Click the down arrow located at the right side of the "Run and Debug" play button in the top-right corner of the editor window.
+    - Select "Python Debugger: Debug using launch.json" from the dropdown menu.
+    - Then choose "Python Debugger: Current File" (or your preferred debug configuration).
+    - This will automatically generate a valid launch.json file in your project's .vscode folder.
+
+
+
+3.  **Wait for the Update**: Since a fix has been merged upstream, this issue should be resolved in future VSCode updates. Regularly update your VSCodium.
+
+### Root Cause
+
+During the localization process for non-English interfaces, VSCode incorrectly translated and handled the file name `launch.json`. This led to the debugger failing to find the correct command when the button was clicked in a non-English environment. The core issue was a mislocalized string, which has been addressed in the upstream fix.
+
+#### Related links
+
+- [VSCode Issue #271691](https://github.com/microsoft/vscode/issues/271691).
+- [VSCode Pull Request #271707](https://github.com/microsoft/vscode/pull/271707).
 
 
 <!-- Template
