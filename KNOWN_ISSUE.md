@@ -1,189 +1,187 @@
-# 生产环境测试清单
+# Known Issues and Possible Resolution
 
-## 🎯 Basic Tests
+## 1. Proposed API Error
 
-### **basic of basic**
+- **Status**: Identified - This is a feature restriction, not a bug
 
-- [x] run python without debug
-- [x] package info
-- [x] disable the extension
-- [x] bundled libs installed
+### Symptom
 
-- [x] launch a debug
-- [x] show output in terminal
-- [ ] 调试器能正常断开连接
+In the OUTPUT panel (or bottom-right notification message), you may see error messages like:
 
-
-### **breakpoint related**
-
-- [ ] triggered breakpoint
-- [ ] 断点暂停时能查看变量值
-- [ ] inline breakpoint
-- [] function breakpoint
-- [] data breakpoint
-- [] logpoint
-- [] breakpoint section in RUN AND DEBUG view
-- [x] breakpoint in passed area
-
-## 🔧 Advanced tests
-
-### **UI**
-
-#### debug toolbar
-
-- [ ] **Step Over** (F10) - 单步跳过
-- [ ] **Step Into** (F11) - 单步进入函数
-- [ ] **Step Out** (Shift+F11) - 单步跳出函数
-- [ ] **Continue** (F5) - 继续执行
-- [] restart
-- [] stop
-
-#### launch from editor button
-
-#### launch from RUN AND DEBUG view
-
-#### debug console
-
-- [x] log text print
-- [x] REPL
-
-#### debug sidebar
-
-- [x] turning orange(blue)
-- [x] show info
-- [] switch debug profile
-
-### **variable and monitor**
-
-- [ ] 局部变量正确显示
-- [ ] 对象属性可展开查看
-- [ ] 监视表达式工作正常
-- [ ] 数组/列表内容正确显示
-
-### **调用堆栈测试**
-```python
-# test_callstack.py
-def function_a():
-    function_b()  # 查看调用堆栈
-
-def function_b():
-    function_c()
-
-def function_c():
-    x = 1  # 在此设置断点
-
-function_a()
-```
-- [ ] 调用堆栈正确显示函数调用关系
-- [ ] 能在堆栈帧间切换
-
-### **debug console**
-
-
-### **commands**
-
-### **settings**
-
-- []
-- [] 
-
-### **OUTPUT**
-
-- [] no error
-- [] DAP server path correct
-- [] proposed api
-
-```
-[error] [窗口] Extension debugpy CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
+``` log
+[error] [Window] Extension 'wubzbz.debugpy' CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
 ```
 
-### **configuration**
+Or more specifically:
+``` log
+[error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
+Its package.json#enabledApiProposals-property declares:  but NOT portsAttributes.
+The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
+```
 
-#### launch.json
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+#### 1. Temporary Workaround
+
+Launch VSCodium with the following command:
+```bash
+codium --enable-proposed-api wubzbz.debugpy
+```
+
+If this error disappears, then this solution is proved to match with the problem you encountered. Next, you can try steps shown below.
+
+#### 2. Permanent Solution 1: Edit product.json
+
+> [!IMPORTANT] 
+> Before making any changes, create a backup of your `product.json` file.
+
+1. Locate the [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) file in your VSCodium installation directory (typically in `resources/app/product.json`). You probably need a root authentication to edit and save this file.
+2. Find (or add) the `extensionEnabledApiProposals` section, which should contains these items and something else(proposed APIs used by other extensions are defined here, too). Or just use `Ctrl`+`F` to search `debugpy`, in most cases you can navigate to here directly. However, if there's no search result, you may consider adding this entry by yourself.
 
 ```json
-// .vscode/launch.json 的各种配置
+// product.json
 {
-    "name": "Python: Current File",
-    "type": "python",
-    "request": "launch",
-    "program": "${file}",
-    "args": ["--verbose"]
+    ...(other sections)
+    "extensionEnabledApiProposals": [
+        ...(other extensions)
+        "ms-python.vscode-pylance": [
+        "terminalShellEnv",
+        "portsAttributes"
+        ],
+        "ms-python.debugpy": [
+        "contribViewsWelcome",
+        "debugVisualization",
+        "portsAttributes"
+        ],
+        // we need to add an entry here
+        ...(other extensions)
+    ],
+    ...(other sections)
 }
 ```
 
-- [] generate from RUN AND DEBUG view
+3. Add proposed APIs entry for `wubzbz.debugpy`. You can place it below `ms-python.debugpy`'s entry, or somewhere else in the `extensionEnabledApiProposals` section. But directly modify `ms-python.debugpy` to 
+`wubzbz.debugpy` is not recommended.
 
+```json
+        "wubzbz.debugpy": [
+        "contribViewsWelcome",
+        "debugVisualization",
+        "portsAttributes"
+        ],
 ```
-[error] [窗口] command 'command:workbench.action.debug.configure' not found: Error: command 'command:workbench.action.debug.configure' not found
-    at gYe._tryExecuteCommand (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1337:5745)
-    at gYe.executeCommand (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1337:5643)
-    at async MXe.open (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1362:404)
-    at async LXe.open (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1362:1969)
+
+4. Restart VSCodium.
+
+#### 3. Permanent Solution 2: Edit argv.json
+
+> [!IMPORTANT] 
+> Before making any changes, create a backup of your `argv.json` file.
+
+1. In VSCodium, open the Command Palette (`Ctrl+Shift+P`)
+2. Run "Preferences: Configure Runtime Arguments"
+3. Add the following to the `argv.json` file:
+
+```json
+{
+    "enable-proposed-api": ["wubzbz.debugpy"]
+}
 ```
 
-- [ ] 命令行参数传递正常
-- [ ] 工作目录设置正确
-- [ ] 环境变量设置生效
-- [] comments in json?
-- [] attach to process id
+4. Save and restart VSCodium
+
+### Root Cause
+
+[**Proposed APIs**](https://code.visualstudio.com/api/advanced-topics/using-proposed-api) are experimental features in VS Code/VSCodium that are still under development and not yet stable for general use. They allow extension developers to test new functionality before official release.
+
+In official distribution builds, these APIs are typically **disabled** by default for stability reasons. However, as you have seen in the `extensionEnabledApiProposals` section of `product.json` file, the official VS Code and VS Codium product include pre-approved exceptions in [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) configuration for certain Microsoft and GitHub extensions (like `ms-python.debugpy`), allowing them to use specific Proposed APIs even in release builds.
+
+Since this project is a port to loongarch64 architecture with a different extension identifier (`wubzbz.debugpy` instead of the official `ms-python.debugpy`), it doesn't benefit from these pre-approved exceptions in VSCodium. Users need to manually enable the Proposed APIs for this extension using one of the methods above.
+
+This is a security and stability feature of VSCodium/VS Code, ensuring that experimental APIs are only used when explicitly permitted by the user.
+
+#### Related links
+
+- [`product.json`](https://github.com/microsoft/vscode/blob/main/product.json) of VS Code and [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) of VS Codium.
+    - `extensionEnabledApiProposals` is not defined in [VS Code repository](https://github.com/microsoft/vscode/tree/main)'s `product.json` file, but it actually exists in the official distributions you downloaded. Check `resources/app/product.json` in where you installed a Microsoft VSCode to verify it.
+- [VSCode Discussions #899](https://github.com/microsoft/vscode-discussions/discussions/899).
+- VSCode python extension [Issue #20247](https://github.com/microsoft/vscode-python/issues/20247) and [Issue #20498](https://github.com/microsoft/vscode-python/issues/20498).
 
 
-## 🐍 Python 特定功能
+## 2. Activating extension 'wubzbz.debugpy' failed
 
-### **Python 环境测试**
+- **Status**: Identified - Extension conflict issue
 
-- [ ] 能正确识别系统 Python 解释器
-- [ ] 支持虚拟环境 (venv, conda)
-- [ ] 能切换不同 Python 版本
+### Symptom
 
-### **异常处理测试**
-```python
-# test_exceptions.py
-def risky_operation():
-    return 1 / 0  # 除零异常
+When installing `wubzbz.debugpy` without first uninstalling other debugpy extensions, you may see error messages in the bottom-right notification area:
 
-try:
-    risky_operation()
-except Exception as e:
-    print(f"Caught exception: {e}")
+``` log
+Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' already exists.
+[wubzbz.debugpy]: Cannot register "debugpy.showPythonInlineValues". This property has been registered. 
+[wubzbz.debugpy]: Cannot register "debugpy.debugJustMyCode". This property has been registered. 
 ```
-- [ ] 未捕获异常时调试器暂停
-- [ ] 异常信息正确显示
-- [ ] 用户异常断点工作
 
-### **test with debugpy**
+### Resolution Methods
 
-- []
-- [] --wait-for-client
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
 
-## 📁 实际场景测试
+#### Complete Uninstallation and Clean Installation
 
-### **多文件项目测试**
-```bash
-project/
-├── main.py
-├── utils/
-│   └── helpers.py
-└── tests/
-    └── test_basic.py
-```
-- [ ] 跨文件断点工作正常
-- [ ] 模块导入调试正常
-- [ ] 相对路径导入正确解析
+1. **Uninstall conflicting extensions**:
+   - Open VSCodium
+   - Go to Extensions view (`Ctrl+Shift+X`)
+   - Search for and uninstall any of the following extensions if present:
+     - `ms-python.debugpy` (official Microsoft version)
+     - Any other extension with "debugpy" in its name
 
-### **multi-threading**
+2. **Install wubzbz.debugpy**:
+   - Install the loongarch64-compatible debugpy extension
+   - Restart VSCodium
 
-### **Django, Flask, and FastAPI**
+3. **Clear extension cache** (**only if** issues persist):
+   - Close VSCodium completely
+   - Navigate to VSCodium's extension directory:
+     - **Linux**: `~/.vscodium/extensions`
+   - Delete any remaining debugpy-related folders
+   - Repeat Step 2
 
-### **SSH Remote Debug**
+#### Alternative: Disable Conflicting Extensions
+
+If you need to keep other Python extensions for compatibility reasons:
+
+1. Go to Extensions view (`Ctrl+Shift+X`)
+2. Find conflicting extensions (like `ms-python.python`)
+3. Click the "Disable" button instead of uninstalling
+4. Restart VSCodium, install and enable `wubzbz.debugpy`
+
+### Root Cause
+
+This issue occurs because multiple extensions are trying to register the same commands, settings, and contributions with identical identifiers. VSCodium/VSCode doesn't allow duplicate registrations for:
+
+- **Commands** (like `debugpy.viewOutput`)
+- **Settings** (like `debugpy.debugJustMyCode`)
+
+The official Microsoft debugpy extension (`ms-python.debugpy`) and our loongarch64 port (`wubzbz.debugpy`) both attempt to register identical functionality, causing conflicts during activation.
+
+This is a fundamental limitation of the VSCode extension system - only one extension can own a particular command or setting identifier at a time.
 
 
-## 🏗️ Platform-specific tests
+<!-- Template
+## 1. 
 
-### **LoongArch64 兼容性**
+- **Status**: 
 
-- [ ] 插件在 LoongArch64 上稳定运行
-- [ ] 无原生模块兼容性问题
-- [ ] 性能表现正常
-- [ ] 内存使用合理
+### Symptom
+
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+### Root Cause
+-->
