@@ -944,12 +944,18 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 uriFormat: '%s',
                 action: 'openExternally',
             };
+
             testsForautoStartBrowser.forEach(async (testParams) => {
                 const debugConfig = await resolveDebugConfiguration(workspaceFolder, {
                     ...launch,
                     ...testParams,
                 });
-                expect(debugConfig).to.have.property('serverReadyAction', expectedServerReadyAction);
+                if (!debugConfig) {
+                    throw new Error('Debug config is undefined');
+                }
+                // using deep equal like the next test
+                expect(debugConfig).to.have.property('serverReadyAction');
+                expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
             });
         });
 

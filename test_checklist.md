@@ -1,192 +1,158 @@
-# Production Environment Test Checklist
+# Production Environment Test Checklist for Python Debugger
 
-## 🎯 Basic Tests
+## 🎯 Basic Functionality Tests
 
-### **basic of basic**
+### **Core Debugger Operations**
+- [x] Run Python script without debug mode
+- [x] Display package information correctly
+- [x] Debugger extension can be properly disabled/enabled
+- [x] All bundled libraries are properly installed
+- [x] Launch debug session successfully
+- [x] Debug output displayed in terminal
+- [ ] Debugger can properly disconnect
+- [ ] Debug session can be terminated cleanly
 
-- [x] run python without debug
-- [x] package info
-- [x] disable the extension
-- [x] bundled libs installed
+### **Breakpoint Management**
+- [ ] Breakpoints are triggered correctly
+- [ ] Variable values displayed during debugging
+- [ ] Inline breakpoints function properly
+- [ ] Function breakpoints work as expected
+- [ ] Data breakpoints function correctly
+- [ ] Logpoints output messages without stopping
+- [ ] Breakpoint section visible in RUN AND DEBUG view
+- [x] Breakpoints in valid code areas work correctly
+- [ ] Conditional breakpoints function properly
+- [ ] Exception breakpoints work as expected
 
-- [x] launch a debug
-- [x] show output in terminal
-- [ ] 调试器能正常断开连接
+## 🔧 Advanced Debugging Features
 
+### **Debugging Controls & UI**
+#### Debug Toolbar
+- [ ] Step Over (F10) works correctly
+- [ ] Step Into (F11) works correctly
+- [ ] Step Out (Shift+F11) works correctly
+- [ ] Continue (F5) resumes execution properly
+- [ ] Restart (Ctrl+Shift+F5) reloads debug session
+- [ ] Stop (Shift+F5) terminates debug session
 
-### **breakpoint related**
+#### Launch Methods
+- [ ] Debug Python file from editor button
+- [ ] Debug Python file using launch.json configuration
+- [ ] Launch debugger from RUN AND DEBUG view - Python Debugger
+- [ ] Launch debugger from RUN AND DEBUG view - Custom configuration
+- [ ] Add new debug configuration
+- [ ] Generate launch.json from RUN AND DEBUG view
 
-- [] triggered breakpoint
-- [] value shown while debugging
-- [] inline breakpoint
-- [] function breakpoint
-- [] data breakpoint
-- [] logpoint
-- [] breakpoint section in RUN AND DEBUG view
-- [x] breakpoint in passed area
+#### Debug Interface Elements
+- [x] Debug sidebar changes color when active (orange/blue)
+- [x] Debug information displayed in sidebar
+- [ ] Switch between different debug profiles
+- [x] Print log text in debug console
+- [x] REPL functionality works in debug console
+- [ ] Debug console supports expression evaluation
 
+### **Data Inspection**
+- [ ] Local variables displayed correctly
+- [ ] Object properties can be expanded and inspected
+- [ ] Watch expressions update and display properly
+- [ ] Array/list contents displayed correctly
+- [ ] Global variables accessible during debugging
+- [ ] Variable values update during stepping
 
-## 🔧 Advanced tests
-
-### **UI**
-
-#### debug toolbar
-
-- [ ] Step Over (F10)
-- [ ] Step Into (F11)
-- [ ] Step Out (Shift+F11)
-- [ ] Continue (F5)
-- [] Restart(Ctrl+Shift+F5)
-- [] Stop(Shift+F5)
-
-#### launch from editor button
-
-- [] debug python file
-- [] debug python file using launch.json
-
-#### launch from RUN AND DEBUG view
-
-- [] play: python debugger
-- [] play: custom debug
-- [] add config
-
-
-#### debug console
-
-- [x] print log text
-- [x] REPL
-
-#### debug sidebar
-
-- [x] turning orange(blue)
-- [x] show info
-- [] switch debug profile
-
-### **variable and monitor**
-
-- [ ] 局部变量正确显示
-- [ ] 对象属性可展开查看
-- [ ] 监视表达式工作正常
-- [ ] 数组/列表内容正确显示
-
-### **调用堆栈测试**
-
+### **Call Stack Management**
 ```python
 # test_callstack.py
 def function_a():
-    function_b()  # 查看调用堆栈
+    function_b()  # Check call stack here
 
 def function_b():
     function_c()
 
 def function_c():
-    x = 1  # 在此设置断点
+    x = 1  # Set breakpoint here
 
 function_a()
 ```
-- [ ] 调用堆栈正确显示函数调用关系
-- [ ] 能在堆栈帧间切换
+- [ ] Call stack displays correct function hierarchy
+- [ ] Can navigate between stack frames
+- [ ] Stack frame variables update when switching frames
+- [ ] Call stack preserved during step operations
 
-### **debug console**
+### **Command Palette Integration**
+- [ ] `debugpy.command.clearCacheAndReload.title` works
+- [ ] `debugpy.command.debugInTerminal.title` functions
+- [ ] `debugpy.command.debugUsingLaunchConfig.title` works
+- [ ] `debugpy.command.reportIssue.title` accessible
+- [ ] `debugpy.command.viewOutput.title` displays output
 
-- [] debug in terminal
-- [] 
-- []
+### **Configuration & Settings**
+#### Settings Validation
+- [ ] `debugpy.debugJustMyCode` setting functions correctly
+- [ ] `debugpy.showPythonInlineValues` displays inline values
+- [ ] Debugger settings persist between sessions
 
-### **commands**
-
-- [] debugpy.command.clearCacheAndReload.title
-- [] debugpy.command.debugInTerminal.title
-- [] debugpy.command.debugUsingLaunchConfig.title
-- [] debugpy.command.reportIssue.title
-- [] debugpy.command.viewOutput.title
-
-### **settings**
-
-- [] debugpy.debugJustMyCode.description
-- [] debugpy.showPythonInlineValues.description
-
-### **OUTPUT**
-
-- [] no error
-- [x] DAP server path correct
-- [] proposed api
-
-```
-[error] [窗口] Extension debugpy CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
-```
-
-- keypoint: `product.json`
-
-- [VSCode Discussions #899](https://github.com/microsoft/vscode-discussions/discussions/899).
-- [Issue 20247](https://github.com/microsoft/vscode-python/issues/20247) and [Issue 20498](https://github.com/microsoft/vscode-python/issues/20498)
-
-### **configuration**
-
-#### launch.json
-
+#### launch.json Configuration
 ```json
-// .vscode/launch.json 的各种配置
 {
     "name": "Python: Current File",
-    "type": "python",
+    "type": "python", 
     "request": "launch",
     "program": "${file}",
-    "args": ["--verbose"]
+    "args": ["--verbose"],
+    "console": "integratedTerminal",
+    "env": {"DEBUG": "true"}
 }
 ```
+- [ ] Command line arguments passed correctly to program
+- [ ] Working directory setting functions properly
+- [ ] Environment variables set in launch.json take effect
+- [ ] JSON comments supported in launch.json
+- [ ] Attach to process by PID works correctly
+- [ ] Multiple debug configurations can be created and used
 
-- [] generate from RUN AND DEBUG view
+### **Output & Error Handling**
+- [ ] No unexpected errors in OUTPUT panel
+- [x] DAP server path correctly configured
+- [x] Proposed API usage properly handled
+- [ ] Error messages are clear and actionable
+- [ ] Warning messages appropriately displayed
 
-```
-[error] [窗口] command 'command:workbench.action.debug.configure' not found: Error: command 'command:workbench.action.debug.configure' not found
-    at gYe._tryExecuteCommand (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1337:5745)
-    at gYe.executeCommand (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1337:5643)
-    at async MXe.open (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1362:404)
-    at async LXe.open (vscode-file://vscode-app/usr/lib/vscodium/resources/app/out/vs/workbench/workbench.desktop.main.js:1362:1969)
-```
+## 🐍 Python-Specific Features
 
-- [ ] 命令行参数传递正常
-- [ ] 工作目录设置正确
-- [ ] 环境变量设置生效
-- [] comments in json?
-- [] attach to process id
+### **Python Environment Management**
+- [ ] Correctly detects system Python interpreter
+- [ ] Supports virtual environments (venv, conda, pipenv)
+- [ ] Can switch between different Python versions
+- [ ] Python path configuration works correctly
+- [ ] Interpreter selection persists between sessions
 
-
-## 🐍 Python 特定功能
-
-### **Python env test**
-
-- [ ] 能正确识别系统 Python 解释器
-- [ ] 支持虚拟环境 (venv, conda)
-- [ ] 能切换不同 Python 版本
-
-### **Exception handling**
+### **Exception Handling**
 ```python
 # test_exceptions.py
 def risky_operation():
-    return 1 / 0  # 除零异常
+    return 1 / 0  # Zero division error
 
 try:
     risky_operation()
 except Exception as e:
     print(f"Caught exception: {e}")
 ```
-- [ ] 未捕获异常时调试器暂停
-- [ ] 异常信息正确显示
-- [ ] 用户异常断点工作
+- [ ] Debugger pauses on uncaught exceptions
+- [ ] Exception information displayed correctly
+- [ ] User-defined exception breakpoints work
+- [ ] Exception details include stack trace
+- [ ] Can continue execution after handling exception
 
-### **test with debugpy**
+### **Debugpy Integration**
+- [ ] Debugpy module functions correctly
+- [ ] `--wait-for-client` parameter works
+- [ ] Remote debugging connections established properly
+- [ ] Debugpy commands available and functional
 
-- []
-- [] --wait-for-client
+## 📁 Real-World Scenarios
 
-
-## 📁 实际场景测试
-
-### **多文件项目测试**
-
-```bash
+### **Multi-file Project Debugging**
+```
 project/
 ├── main.py
 ├── utils/
@@ -194,26 +160,84 @@ project/
 └── tests/
     └── test_basic.py
 ```
+- [ ] Cross-file breakpoints work correctly
+- [ ] Module imports debug properly
+- [ ] Relative imports resolve correctly
+- [ ] Breakpoints in imported modules function
+- [ ] Step into functionality works across files
 
-- [ ] 跨文件断点工作正常
-- [ ] 模块导入调试正常
-- [ ] 相对路径导入正确解析
+### **Concurrent Programming**
+```python
+# test_threading.py
+import threading
+import time
 
-### **multi-threading**
+def worker_function(thread_id):
+    print(f"Thread {thread_id} starting")
+    time.sleep(1)
+    print(f"Thread {thread_id} finished")
 
+threads = []
+for i in range(3):
+    t = threading.Thread(target=worker_function, args=(i,))
+    threads.append(t)
+    t.start()
 
-### **Django, Flask, and FastAPI**
+for t in threads:
+    t.join()
+```
+- [ ] Debugging multi-threaded applications works
+- [ ] Thread switching in debugger functions
+- [ ] Breakpoints in threads are hit correctly
+- [ ] Thread information displayed in debug view
 
+### **Web Framework Support**
+- [ ] Django application debugging
+- [ ] Flask application debugging  
+- [ ] FastAPI application debugging
+- [ ] Web framework hot reload works with debugger
+- [ ] Request breakpoints function in web apps
 
-### **SSH Remote Debug**
+### **Remote Debugging**
+- [ ] SSH remote debugging setup works
+- [ ] Remote interpreter detection functions
+- [ ] File synchronization during remote debug
+- [ ] Remote breakpoints work correctly
 
+## 🏗️ Platform-Specific Tests
 
-## 🏗️ Platform-specific tests
+### **LoongArch64 Compatibility**
+- [ ] Extension runs stably on LoongArch64 architecture
+- [x] No native module compatibility issues
+    - [x] Verified reliable node_modules: only `keytar` with `.node` files - Compatible
+- [ ] Normal performance characteristics maintained
+- [ ] Normal memory usage patterns observed
+- [ ] All debugger features function identically to x86/ARM
+- [ ] No architecture-specific crashes or errors
+- [ ] Extension installation and updates work normally
 
-### **LoongArch64 compatibility**
+### **Cross-Platform Consistency**
+- [ ] All functionality consistent with x86 platforms
+- [ ] All functionality consistent with ARM platforms
+- [ ] Platform-specific paths handled correctly
+- [ ] File encoding and line endings handled properly
 
-- [ ] 插件在 LoongArch64 上稳定运行
-- [x] 无原生模块兼容性问题
-    - [x] checked reliables in node_modules: only `keytar` with `.node` -- OK.
-- [ ] normal performance
-- [ ] normal ram usage
+## 🔍 Additional Test Scenarios
+
+### **Performance & Stability**
+- [ ] Debugger startup time acceptable
+- [ ] No memory leaks during extended debug sessions
+- [ ] Large project debugging performs adequately
+- [ ] Breakpoint management responsive with many breakpoints
+
+### **Edge Cases**
+- [ ] Debugging scripts with syntax errors
+- [ ] Handling of infinite loops during debugging
+- [ ] Debugger recovery after target process crashes
+- [ ] Large data structure inspection performance
+- [ ] Unicode and special character handling in variables
+
+---
+*Checklist Version: 2.0  
+Last Updated: 2025/10/31  
+Test Environment: VSCodium with Python Extension on LoongArch64*

@@ -1,4 +1,4 @@
-# Known Issues and Possible Resolution
+# Known Issues and Possible Solution
 
 ## 1. Proposed API Error
 
@@ -9,17 +9,22 @@
 In the OUTPUT panel (or bottom-right notification message), you may see error messages like:
 
 ``` log
-[error] [Window] Extension 'wubzbz.debugpy' CANNOT USE these API proposals 'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
+[error] [Window] Extension 'wubzbz.debugpy' CANNOT USE these API proposals 
+'portsAttributes, debugVisualization, contribViewsWelcome'. You MUST start in 
+extension development mode or use the --enable-proposed-api command line flag
 ```
 
 Or more specifically:
+
 ``` log
-[error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
+[error] sendDebugpySuccessActivationTelemetry() failed. [Error: Extension 
+'wubzbz.debugpy' CANNOT use API proposal: portsAttributes.
 Its package.json#enabledApiProposals-property declares:  but NOT portsAttributes.
-The missing proposal MUST be added and you must start in extension development mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
+The missing proposal MUST be added and you must start in extension development
+mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -125,7 +130,7 @@ Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' alrea
 [wubzbz.debugpy]: Cannot register "debugpy.debugJustMyCode". This property has been registered. 
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -139,7 +144,7 @@ Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' alrea
      - `ms-python.debugpy` (official Microsoft version)
      - Any other extension with "debugpy" in its name
 
-2. **Install wubzbz.debugpy**:
+2. **Install Python Debugger for LoongArch (wubzbz.debugpy)**:
    - Install the loongarch64-compatible debugpy extension
    - Restart VSCodium
 
@@ -173,7 +178,7 @@ This is a fundamental limitation of the VSCode extension system - only one exten
 
 ## 3. 'npm: command not found' During Debugging Extension
 
-- **Status**: Resolved
+- **Status**: Resolved in [Pull Request #4](https://github.com/wubzbz/vscode-python-debugger-la64/pull/4).
 
 ### Symptom
 
@@ -199,7 +204,7 @@ npm: command not found
 
 This occurs even though npm commands work correctly in the terminal. The preLaunchTask fails to execute because the npm command cannot be found in the task execution environment.
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -239,6 +244,127 @@ The solution used `bash -l` (login shell) that forces the loading of user profil
 This approach maintains nvm's environment setup while working within VS Code's task execution model.
 
 
+## 4. "Create a launch.json" Button Failure in Non-English Environments
+
+- **Status**: Fixed upstream (refer to VSCode Pull Request [#271707](https://github.com/microsoft/vscode/pull/271707)). Awaiting integration into subsequent VSCode releases.
+
+<img width="284" height="187" alt="图片" src="https://github.com/user-attachments/assets/650f4745-396f-4bf8-93fe-8203c0fc7784" />
+
+### Symptom
+
+When the display language is set to a non-English language in VSCode/VSCodium:
+
+1.  Navigate to the **Run and Debug** view.
+2.  If no `launch.json` file exists in the current workspace, a welcome page with a "Create a launch.json" button is displayed.
+3.  Clicking this button fails with an error in the OUTPUT panel:
+    ``` log
+    [error] [窗口] command 'command:workbench.action.debug.configure' not found:
+    Error: command 'command:workbench.action.debug.configure' not found
+    ```
+    This prevents the creation of the essential `launch.json` file, which is crucial for configuring the debug environment, thus blocking debugging functionality.
+
+### Solution
+
+1.  **Switch VSCode Language to English (Temporary Workaround)**:
+    - Open the Command Palette (`Ctrl+Shift+P`)
+    - Execute `Configure Display Language`
+    - Set the `locale` to `"en"`
+    - Restart VSCode. The button should now function correctly
+
+2. **Create `launch.json` via Editor Button**:
+    - Click the down arrow located at the right side of the "Run and Debug" play button in the top-right corner of the editor window.
+    - Select "Python Debugger: Debug using launch.json" from the dropdown menu.
+    - Then choose "Python Debugger: Current File" (or your preferred debug configuration).
+    - This will automatically generate a valid launch.json file in your project's .vscode folder.
+
+<img width="370" height="276" alt="图片" src="https://github.com/user-attachments/assets/c25c31dc-2183-46f0-9c88-f414d421278d" />
+
+3.  **Wait for the Update**: Since a fix has been merged upstream, this issue should be resolved in future VSCode updates. Regularly update your VSCodium.
+
+### Root Cause
+
+During the localization process for non-English interfaces, VSCode incorrectly translated and handled the file name `launch.json`. This led to the debugger failing to find the correct command when the button was clicked in a non-English environment. The core issue was a mislocalized string, which has been addressed in the upstream fix.
+
+#### Related links
+
+- [VSCode Issue #271691](https://github.com/microsoft/vscode/issues/271691).
+- [VSCode Pull Request #271707](https://github.com/microsoft/vscode/pull/271707).
+
+
+## 5. "'inlineHexDecoder' is already registered" During Unit Tests
+
+- **Status**: Observing
+
+### Symptom
+
+With Jupyter extensions installed, error log presents during running unit tests:
+```
+Debugging - pythonInlineProvider
+    ✔ ProvideInlineValues function should return all the vars in the python file (56ms)
+    rejected promise not handled within 1 second: TypeError: Cannot read properties of undefined (reading 'get')
+    rejected promise not handled within 1 second: Error: A debug visualization provider with id 'inlineHexDecoder' is already registered
+    ✔ ProvideInlineValues function should return all the vars in the python file with self in class (1052ms)
+    ✔ ProvideInlineValues function should return the vars in the python file with readable class variables
+    ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
+```
+
+### Solution
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+Disable or uninstall Jupyter serial extensions(Jupyter, Jupyter Cell Tags, Jupyter Keymap, Jupyter Notebook Renderers, and Jupyter Slide Show).
+
+### Root Cause
+
+There may be some conflicts between Python Debugger extension and Jupyter extensions on registration of a debug visualization provider with id 'inlineHexDecoder'. 
+We are still observing its influence on Python Debugger extension's function `showPythonInlineValues`.
+
+
+## 6. "property 'serverReadyAction' AssertionError" During Unit Tests
+
+- **Status**: Fixed in [Pull Request # ]()
+
+### Symptom
+
+Error log presents during running unit tests:
+```
+Debugging - pythonInlineProvider
+    ✔ ProvideInlineValues function should return all the vars in the python file (56ms)
+    rejected promise not handled within 1 second: AssertionError: expected { name: 'Python launch', …(19) } to have property 'serverReadyAction' of { …(3) }, but got { …(3) }
+    ✔ ProvideInlineValues function should return all the vars in the python file with self in class (1052ms)
+    ✔ ProvideInlineValues function should return the vars in the python file with readable class variables
+    ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
+```
+
+### Solution
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+For end users: No action required. Just keep your extensions updated.
+For developers: Fetch the latest changes from this repository to get the fix.
+
+### Root Cause
+
+The issue was caused by **improper object comparison**: The 'Add serverReadyAction for Django and Flask' [test](./src/test/unittest/configuration/resolvers/launch.unit.test.ts) used shallow property comparison (`expect().to.have.property(property, value)`) which only checks reference equality for objects, not their actual content. This caused false negatives when comparing the `serverReadyAction` configuration objects.
+
+The following changes were implemented to resolve the issue:
+
+1. **Use deep equality comparison for objects**:
+   ```javascript
+   // Before (problematic):
+   expect(debugConfig).to.have.property('serverReadyAction', expectedServerReadyAction);
+   
+   // After (fixed):
+   expect(debugConfig).to.have.property('serverReadyAction');
+   expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
+   ```
+
+2. **Add null checks** to prevent undefined property access errors.
+
+
+
 <!-- Template
 ## 1. 
 
@@ -246,7 +372,7 @@ This approach maintains nvm's environment setup while working within VS Code's t
 
 ### Symptom
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
