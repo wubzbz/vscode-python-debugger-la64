@@ -1,4 +1,4 @@
-# Known Issues and Possible Resolution
+# Known Issues and Possible Solution
 
 ## 1. Proposed API Error
 
@@ -24,7 +24,7 @@ The missing proposal MUST be added and you must start in extension development
 mode or use the following command line switch: --enable-proposed-api wubzbz.debugpy
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -130,7 +130,7 @@ Activating extension 'wubzbz.debugpy' failed: command 'debugpy.viewOutput' alrea
 [wubzbz.debugpy]: Cannot register "debugpy.debugJustMyCode". This property has been registered. 
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -204,7 +204,7 @@ npm: command not found
 
 This occurs even though npm commands work correctly in the terminal. The preLaunchTask fails to execute because the npm command cannot be found in the task execution environment.
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -263,7 +263,7 @@ When the display language is set to a non-English language in VSCode/VSCodium:
     ```
     This prevents the creation of the essential `launch.json` file, which is crucial for configuring the debug environment, thus blocking debugging functionality.
 
-### Resolution Methods
+### Solution
 
 1.  **Switch VSCode Language to English (Temporary Workaround)**:
     - Open the Command Palette (`Ctrl+Shift+P`)
@@ -308,7 +308,7 @@ Debugging - pythonInlineProvider
     ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -337,7 +337,7 @@ Debugging - pythonInlineProvider
     ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
 ```
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
@@ -347,30 +347,11 @@ For developers: Fetch the latest changes from this repository to get the fix.
 
 ### Root Cause
 
-The issue was caused by two main factors in the test implementation:
-
-1. **Incorrect asynchronous handling in loops**: The test used `Array.forEach()` with `async/await` functions, which doesn't properly handle asynchronous operations. `forEach()` doesn't wait for promises to resolve, causing assertions to execute outside the test context and resulting in unhandled promise rejections.
-
-2. **Improper object comparison**: The test used shallow property comparison (`expect().to.have.property(property, value)`) which only checks reference equality for objects, not their actual content. This caused false negatives when comparing the `serverReadyAction` configuration objects.
+The issue was caused by **improper object comparison**: The 'Add serverReadyAction for Django and Flask' [test](./src/test/unittest/configuration/resolvers/launch.unit.test.ts) used shallow property comparison (`expect().to.have.property(property, value)`) which only checks reference equality for objects, not their actual content. This caused false negatives when comparing the `serverReadyAction` configuration objects.
 
 The following changes were implemented to resolve the issue:
 
-1. **Replace `forEach` with `for...of` loops**:
-   ```javascript
-   // Before (problematic):
-   testsForautoStartBrowser.forEach(async (testParams) => {
-       const debugConfig = await resolveDebugConfiguration(...);
-       // assertions...
-   });
-   
-   // After (fixed):
-   for (const testParams of testsForautoStartBrowser) {
-       const debugConfig = await resolveDebugConfiguration(...);
-       // assertions...
-   }
-   ```
-
-2. **Use deep equality comparison for objects**:
+1. **Use deep equality comparison for objects**:
    ```javascript
    // Before (problematic):
    expect(debugConfig).to.have.property('serverReadyAction', expectedServerReadyAction);
@@ -380,9 +361,7 @@ The following changes were implemented to resolve the issue:
    expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
    ```
 
-3. **Add proper null checks** to prevent undefined property access errors.
-
-
+2. **Add null checks** to prevent undefined property access errors.
 
 
 
@@ -393,7 +372,7 @@ The following changes were implemented to resolve the issue:
 
 ### Symptom
 
-### Resolution Methods
+### Solution
 
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.

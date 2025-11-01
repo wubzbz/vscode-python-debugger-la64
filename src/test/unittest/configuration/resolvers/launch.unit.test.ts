@@ -944,8 +944,8 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 uriFormat: '%s',
                 action: 'openExternally',
             };
-            // using for...of instead of forEach to handle async properly
-            for (const testParams of testsForautoStartBrowser) {
+
+            testsForautoStartBrowser.forEach(async (testParams) => {
                 const debugConfig = await resolveDebugConfiguration(workspaceFolder, {
                     ...launch,
                     ...testParams,
@@ -956,7 +956,7 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 // using deep equal like the next test
                 expect(debugConfig).to.have.property('serverReadyAction');
                 expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
-            }
+            });
         });
 
         test('Preserve serverReadyAction when already defined in configuration', async () => {
@@ -972,8 +972,7 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 action: 'debugWithChrome',
             };
 
-            // also using for...of instead of forEach to process async properly
-            for (const testParams of testsForautoStartBrowser) {
+            testsForautoStartBrowser.forEach(async (testParams) => {
                 const debugConfig = await resolveDebugConfiguration(workspaceFolder, {
                     ...launch,
                     ...testParams,
@@ -990,7 +989,7 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                     uriFormat: '%s',
                     action: 'openExternally',
                 });
-            }
+            });
         });
 
         test('Send consoleName value to debugpy as consoleTitle', async () => {
