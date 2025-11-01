@@ -323,7 +323,7 @@ We are still observing its influence on Python Debugger extension's function `sh
 
 ## 6. "property 'serverReadyAction' AssertionError" During Unit Tests
 
-- **Status**: Fixed in [Pull Request # ]()
+- **Status**: Fixed in [Pull Request #5](https://github.com/wubzbz/vscode-python-debugger-la64/pull/5).
 
 ### Symptom
 
@@ -342,8 +342,9 @@ Debugging - pythonInlineProvider
 > [!NOTE] 
 > Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
 
-For end users: No action required. Just keep your extensions updated.
-For developers: Fetch the latest changes from this repository to get the fix.
+**For end users**: No action required. Just keep your extensions updated.
+
+**For developers**: Fetch the latest changes from this repository to get the fix.
 
 ### Root Cause
 
