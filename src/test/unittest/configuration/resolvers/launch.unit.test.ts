@@ -944,13 +944,19 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 uriFormat: '%s',
                 action: 'openExternally',
             };
-            testsForautoStartBrowser.forEach(async (testParams) => {
+            // using for...of instead of forEach to handle async properly
+            for (const testParams of testsForautoStartBrowser) {
                 const debugConfig = await resolveDebugConfiguration(workspaceFolder, {
                     ...launch,
                     ...testParams,
                 });
-                expect(debugConfig).to.have.property('serverReadyAction', expectedServerReadyAction);
-            });
+                if (!debugConfig) {
+                    throw new Error('Debug config is undefined');
+                }
+                // using deep equal like the next test
+                expect(debugConfig).to.have.property('serverReadyAction');
+                expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
+            }
         });
 
         test('Preserve serverReadyAction when already defined in configuration', async () => {
@@ -966,7 +972,8 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                 action: 'debugWithChrome',
             };
 
-            testsForautoStartBrowser.forEach(async (testParams) => {
+            // also using for...of instead of forEach to process async properly
+            for (const testParams of testsForautoStartBrowser) {
                 const debugConfig = await resolveDebugConfiguration(workspaceFolder, {
                     ...launch,
                     ...testParams,
@@ -983,7 +990,7 @@ getInfoPerOS().forEach(([osName, osType, path]) => {
                     uriFormat: '%s',
                     action: 'openExternally',
                 });
-            });
+            }
         });
 
         test('Send consoleName value to debugpy as consoleTitle', async () => {

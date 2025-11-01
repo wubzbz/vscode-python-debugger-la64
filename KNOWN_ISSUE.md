@@ -291,6 +291,101 @@ During the localization process for non-English interfaces, VSCode incorrectly t
 - [VSCode Pull Request #271707](https://github.com/microsoft/vscode/pull/271707).
 
 
+## 5. "'inlineHexDecoder' is already registered" During Unit Tests
+
+- **Status**: Observing
+
+### Symptom
+
+With Jupyter extensions installed, error log presents during running unit tests:
+```
+Debugging - pythonInlineProvider
+    ✔ ProvideInlineValues function should return all the vars in the python file (56ms)
+    rejected promise not handled within 1 second: TypeError: Cannot read properties of undefined (reading 'get')
+    rejected promise not handled within 1 second: Error: A debug visualization provider with id 'inlineHexDecoder' is already registered
+    ✔ ProvideInlineValues function should return all the vars in the python file with self in class (1052ms)
+    ✔ ProvideInlineValues function should return the vars in the python file with readable class variables
+    ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
+```
+
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+Disable or uninstall Jupyter serial extensions(Jupyter, Jupyter Cell Tags, Jupyter Keymap, Jupyter Notebook Renderers, and Jupyter Slide Show).
+
+### Root Cause
+
+There may be some conflicts between Python Debugger extension and Jupyter extensions on registration of a debug visualization provider with id 'inlineHexDecoder'. 
+We are still observing its influence on Python Debugger extension's function `showPythonInlineValues`.
+
+
+## 6. "property 'serverReadyAction' AssertionError" During Unit Tests
+
+- **Status**: Fixed in [Pull Request # ]()
+
+### Symptom
+
+Error log presents during running unit tests:
+```
+Debugging - pythonInlineProvider
+    ✔ ProvideInlineValues function should return all the vars in the python file (56ms)
+    rejected promise not handled within 1 second: AssertionError: expected { name: 'Python launch', …(19) } to have property 'serverReadyAction' of { …(3) }, but got { …(3) }
+    ✔ ProvideInlineValues function should return all the vars in the python file with self in class (1052ms)
+    ✔ ProvideInlineValues function should return the vars in the python file with readable class variables
+    ✔ ProvideInlineValues function should return all the vars in the python file using Assignment Expressions
+```
+
+### Resolution Methods
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+For end users: No action required. Just keep your extensions updated.
+For developers: Fetch the latest changes from this repository to get the fix.
+
+### Root Cause
+
+The issue was caused by two main factors in the test implementation:
+
+1. **Incorrect asynchronous handling in loops**: The test used `Array.forEach()` with `async/await` functions, which doesn't properly handle asynchronous operations. `forEach()` doesn't wait for promises to resolve, causing assertions to execute outside the test context and resulting in unhandled promise rejections.
+
+2. **Improper object comparison**: The test used shallow property comparison (`expect().to.have.property(property, value)`) which only checks reference equality for objects, not their actual content. This caused false negatives when comparing the `serverReadyAction` configuration objects.
+
+The following changes were implemented to resolve the issue:
+
+1. **Replace `forEach` with `for...of` loops**:
+   ```javascript
+   // Before (problematic):
+   testsForautoStartBrowser.forEach(async (testParams) => {
+       const debugConfig = await resolveDebugConfiguration(...);
+       // assertions...
+   });
+   
+   // After (fixed):
+   for (const testParams of testsForautoStartBrowser) {
+       const debugConfig = await resolveDebugConfiguration(...);
+       // assertions...
+   }
+   ```
+
+2. **Use deep equality comparison for objects**:
+   ```javascript
+   // Before (problematic):
+   expect(debugConfig).to.have.property('serverReadyAction', expectedServerReadyAction);
+   
+   // After (fixed):
+   expect(debugConfig).to.have.property('serverReadyAction');
+   expect(debugConfig.serverReadyAction).to.deep.equal(expectedServerReadyAction);
+   ```
+
+3. **Add proper null checks** to prevent undefined property access errors.
+
+
+
+
+
 <!-- Template
 ## 1. 
 
