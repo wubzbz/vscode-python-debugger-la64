@@ -15,7 +15,7 @@ While the official [Python Debugger extension](https://marketplace.visualstudio.
 ### Read More
 
 - [How to build on your machine](./BUILD_LA64.md)
-- [Known issues and resolution](./KNOWN_ISSUE.md)
+- [Known issues and solution](./KNOWN_ISSUE.md)
 - [Code of conduct](./CODE_OF_CONDUCT.md) and [how to contribute](./contributing.md)
 - [Support page](./SUPPORT.md)
 - [Security page](./SECURITY.md)
