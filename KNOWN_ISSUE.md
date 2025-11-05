@@ -365,6 +365,22 @@ The following changes were implemented to resolve the issue:
 2. **Add null checks** to prevent undefined property access errors.
 
 
+## 7. "Unable to find thread to evaluate variable reference"
+
+- **Status**: Unknown
+
+### Symptom
+
+```
+[Error] CodeExceptionError: Unable to find thread to evaluate variable reference.
+```
+
+### Solution
+
+> [!NOTE] 
+> Seek for [support](./SUPPORT.md) if you encountered difficulties during the following operation.
+
+### Root Cause
 
 <!-- Template
 ## 1. 
