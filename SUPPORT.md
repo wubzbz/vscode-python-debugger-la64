@@ -1,7 +1,7 @@
 # Support Guidelines for LoongArch64 Port
 
 > [!NOTE]
-> Please check the [Known Issues and Possible Resolution](./KNOWN_ISSUE.md) page first!
+> Please check the [Known Issues and Possible Solution](./KNOWN_ISSUE.md) page first!
 
 ## 🎯 Where to Report Issues?
 
