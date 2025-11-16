@@ -38,13 +38,13 @@
 - [x] Debug Python file using launch.json configuration
 - [x] Launch debugger from RUN AND DEBUG view - Python Debugger
 - [x] Launch debugger from RUN AND DEBUG view - Custom configuration
-- [ ] Add new debug configuration
-- [ ] ~~Generate launch.json from RUN AND DEBUG view~~ waiting...
+- [x] Add new debug configuration
+- [ ] ~~Generate launch.json from RUN AND DEBUG view~~ waiting for upstream...
 
 #### Debug Interface Elements
 - [x] Debug sidebar changes color when active (orange/blue)
 - [x] Debug information displayed in sidebar
-- [ ] Switch between different debug profiles
+- [x] Switch between different debug profiles
 - [x] Print log text in debug console
 - [x] REPL functionality works in debug console
 - [x] Debug console supports expression evaluation
@@ -79,9 +79,10 @@ function_a()
 
 ### **Command Palette Integration**
 - [x] `debugpy.command.clearCacheAndReload` works
-- [ ] `debugpy.command.debugInTerminal` functions
-- [ ] `debugpy.command.debugUsingLaunchConfig` works
-- [ ] `debugpy.command.reportIssue` accessible
+- [x] `debugpy.command.debugInTerminal` functions
+- [x] `debugpy.command.debugUsingLaunchConfig` works
+- [x] `debugpy.command.reportIssue` accessible
+    - (linked to right repo but cannot navigate to issue report page in browser)
 - [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
@@ -99,15 +100,16 @@ function_a()
     "program": "${file}",
     "args": ["--verbose"],
     "console": "integratedTerminal",
-    "env": {"DEBUG": "true"}
+    "env": {"DEBUG": "true"},
+    "cwd": "${workspaceFolder}/test_dir"
 }
 ```
-- [ ] Command line arguments passed correctly to program
-- [ ] Working directory setting functions properly
-- [ ] Environment variables set in launch.json take effect
+- [x] Command line arguments passed correctly to program
+- [x] Working directory setting functions properly
+- [x] Environment variables set in launch.json take effect
 - [x] JSON comments supported in launch.json
-- [ ] Attach to process by PID works correctly
-- [ ] Multiple debug configurations can be created and used
+- [x] Attach to process by PID works correctly
+- [x] Multiple debug configurations can be created and used
 
 ### **Output & Error Handling**
 - [x] No unexpected errors in OUTPUT panel
@@ -119,11 +121,11 @@ function_a()
 ## 🐍 Python-Specific Features
 
 ### **Python Environment Management**
-- [ ] Correctly detects system Python interpreter
-- [x] Supports virtual environments (venv, conda, pipenv)
+- [x] Correctly detects system Python interpreter
+- [x] Supports virtual environments (venv, conda, ...)
 - [x] Can switch between different Python versions
-- [ ] Python path configuration works correctly
-- [ ] Interpreter selection persists between sessions
+- [x] Python path configuration works correctly
+- [x] Interpreter selection persists between sessions
 
 ### **Exception Handling**
 ```python
@@ -142,10 +144,10 @@ except Exception as e:
 - [x] Can continue execution after handling exception
 
 ### **Debugpy Integration**
-- [ ] Debugpy module functions correctly
-- [ ] `--wait-for-client` parameter works
-- [ ] Remote debugging connections established properly
-- [ ] Debugpy commands available and functional
+- [x] Debugpy module functions correctly
+- [x] `--wait-for-client` parameter works
+- [x] Remote debugging connections established properly
+- [x] Debugpy commands available and functional
 
 ## 📁 Real-World Scenarios
 
@@ -158,11 +160,11 @@ project/
 └── tests/
     └── test_basic.py
 ```
-- [ ] Cross-file breakpoints work correctly
-- [ ] Module imports debug properly
-- [ ] Relative imports resolve correctly
-- [ ] Breakpoints in imported modules function
-- [ ] Step into functionality works across files
+- [x] Cross-file breakpoints work correctly
+- [x] Module imports debug properly
+- [x] Relative imports resolve correctly
+- [x] Breakpoints in imported modules function
+- [x] Step into functionality works across files
 
 ### **Concurrent Programming**
 ```python
@@ -184,10 +186,10 @@ for i in range(3):
 for t in threads:
     t.join()
 ```
-- [ ] Debugging multi-threaded applications works
-- [ ] Thread switching in debugger functions
-- [ ] Breakpoints in threads are hit correctly
-- [ ] Thread information displayed in debug view
+- [x] Debugging multi-threaded applications works
+- [x] Thread switching in debugger functions
+- [x] Breakpoints in threads are hit correctly
+- [x] Thread information displayed in debug view
 
 ### **Web Framework Support**
 - [ ] Django application debugging
