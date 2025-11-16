@@ -22,3 +22,4 @@ noxfile.py
 .pylintrc
 **/requirements.txt
 **/requirements.in
+test_checklist.md

@@ -1,5 +1,8 @@
 # Support Guidelines for LoongArch64 Port
 
+> [!NOTE]
+> Please check the [Known Issues and Possible Solution](./KNOWN_ISSUE.md) page first!
+
 ## 🎯 Where to Report Issues?
 
 **Please report issues in THIS repository when:**
