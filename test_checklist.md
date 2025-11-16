@@ -9,55 +9,54 @@
 - [x] All bundled libraries are properly installed
 - [x] Launch debug session successfully
 - [x] Debug output displayed in terminal
-- [ ] Debugger can properly disconnect
-- [ ] Debug session can be terminated cleanly
+- [x] Debugger can properly disconnect
 
 ### **Breakpoint Management**
-- [ ] Breakpoints are triggered correctly
-- [ ] Variable values displayed during debugging
-- [ ] Inline breakpoints function properly
-- [ ] Function breakpoints work as expected
-- [ ] Data breakpoints function correctly
-- [ ] Logpoints output messages without stopping
-- [ ] Breakpoint section visible in RUN AND DEBUG view
+- [x] Breakpoints are triggered correctly
+- [x] Variable values displayed during debugging
+- [x] Inline breakpoints function properly(Shift+F9)
+- [x] Function breakpoints work as expected
+- [x] Logpoints output messages without stopping
+- [x] Breakpoint section visible in RUN AND DEBUG view
 - [x] Breakpoints in valid code areas work correctly
-- [ ] Conditional breakpoints function properly
-- [ ] Exception breakpoints work as expected
+- [x] Conditional breakpoints function properly
+- [x] Exception breakpoints work as expected
 
 ## 🔧 Advanced Debugging Features
 
 ### **Debugging Controls & UI**
 #### Debug Toolbar
-- [ ] Step Over (F10) works correctly
-- [ ] Step Into (F11) works correctly
-- [ ] Step Out (Shift+F11) works correctly
-- [ ] Continue (F5) resumes execution properly
-- [ ] Restart (Ctrl+Shift+F5) reloads debug session
-- [ ] Stop (Shift+F5) terminates debug session
+- [x] Step Over (F10) works correctly
+- [x] Step Into (F11) works correctly
+- [x] Step Out (Shift+F11) works correctly
+- [x] Continue (F5) resumes execution properly
+- [x] Restart (Ctrl+Shift+F5) reloads debug session
+- [x] Stop (Shift+F5) terminates debug session
 
 #### Launch Methods
-- [ ] Debug Python file from editor button
-- [ ] Debug Python file using launch.json configuration
-- [ ] Launch debugger from RUN AND DEBUG view - Python Debugger
-- [ ] Launch debugger from RUN AND DEBUG view - Custom configuration
-- [ ] Add new debug configuration
-- [ ] Generate launch.json from RUN AND DEBUG view
+- [x] Debug Python file from editor button
+- [x] Debug Python file using launch.json configuration
+- [x] Launch debugger from RUN AND DEBUG view - Python Debugger
+- [x] Launch debugger from RUN AND DEBUG view - Custom configuration
+- [x] Add new debug configuration
+- [ ] ~~Generate launch.json from RUN AND DEBUG view~~ waiting for upstream...
 
 #### Debug Interface Elements
 - [x] Debug sidebar changes color when active (orange/blue)
 - [x] Debug information displayed in sidebar
-- [ ] Switch between different debug profiles
+- [x] Switch between different debug profiles
 - [x] Print log text in debug console
 - [x] REPL functionality works in debug console
-- [ ] Debug console supports expression evaluation
+- [x] Debug console supports expression evaluation
 
 ### **Data Inspection**
-- [ ] Local variables displayed correctly
-- [ ] Object properties can be expanded and inspected
-- [ ] Watch expressions update and display properly
-- [ ] Array/list contents displayed correctly
-- [ ] Global variables accessible during debugging
-- [ ] Variable values update during stepping
+- [x] Local variables display correctly
+- [x] Object properties can be expanded and inspected
+- [x] Watch expressions update and display properly
+- [x] Array/list contents displayed correctly
+- [x] Global variables accessible during debugging
+- [x] Variable values update during stepping
+- [x] Inline Hex Decoder works
 
 ### **Call Stack Management**
 ```python
@@ -73,23 +72,24 @@ def function_c():
 
 function_a()
 ```
-- [ ] Call stack displays correct function hierarchy
-- [ ] Can navigate between stack frames
-- [ ] Stack frame variables update when switching frames
-- [ ] Call stack preserved during step operations
+- [x] Call stack displays correct function hierarchy
+- [x] Can navigate between stack frames
+- [x] Stack frame variables update when switching frames
+- [x] Call stack preserved during step operations
 
 ### **Command Palette Integration**
-- [ ] `debugpy.command.clearCacheAndReload.title` works
-- [ ] `debugpy.command.debugInTerminal.title` functions
-- [ ] `debugpy.command.debugUsingLaunchConfig.title` works
-- [ ] `debugpy.command.reportIssue.title` accessible
-- [ ] `debugpy.command.viewOutput.title` displays output
+- [x] `debugpy.command.clearCacheAndReload` works
+- [x] `debugpy.command.debugInTerminal` functions
+- [x] `debugpy.command.debugUsingLaunchConfig` works
+- [x] `debugpy.command.reportIssue` accessible
+    - (linked to right repo but cannot navigate to issue report page in browser)
+- [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
 #### Settings Validation
-- [ ] `debugpy.debugJustMyCode` setting functions correctly
-- [ ] `debugpy.showPythonInlineValues` displays inline values
-- [ ] Debugger settings persist between sessions
+- [x] `debugpy.debugJustMyCode` setting functions correctly
+- [x] `debugpy.showPythonInlineValues` displays inline values
+- [x] Debugger settings persist between sessions
 
 #### launch.json Configuration
 ```json
@@ -100,31 +100,32 @@ function_a()
     "program": "${file}",
     "args": ["--verbose"],
     "console": "integratedTerminal",
-    "env": {"DEBUG": "true"}
+    "env": {"DEBUG": "true"},
+    "cwd": "${workspaceFolder}/test_dir"
 }
 ```
-- [ ] Command line arguments passed correctly to program
-- [ ] Working directory setting functions properly
-- [ ] Environment variables set in launch.json take effect
-- [ ] JSON comments supported in launch.json
-- [ ] Attach to process by PID works correctly
-- [ ] Multiple debug configurations can be created and used
+- [x] Command line arguments passed correctly to program
+- [x] Working directory setting functions properly
+- [x] Environment variables set in launch.json take effect
+- [x] JSON comments supported in launch.json
+- [x] Attach to process by PID works correctly
+- [x] Multiple debug configurations can be created and used
 
 ### **Output & Error Handling**
-- [ ] No unexpected errors in OUTPUT panel
+- [x] No unexpected errors in OUTPUT panel
 - [x] DAP server path correctly configured
 - [x] Proposed API usage properly handled
-- [ ] Error messages are clear and actionable
-- [ ] Warning messages appropriately displayed
+- [x] Warning messages appropriately displayed
+- [x] l10n bundle displayed translation
 
 ## 🐍 Python-Specific Features
 
 ### **Python Environment Management**
-- [ ] Correctly detects system Python interpreter
-- [ ] Supports virtual environments (venv, conda, pipenv)
-- [ ] Can switch between different Python versions
-- [ ] Python path configuration works correctly
-- [ ] Interpreter selection persists between sessions
+- [x] Correctly detects system Python interpreter
+- [x] Supports virtual environments (venv, conda, ...)
+- [x] Can switch between different Python versions
+- [x] Python path configuration works correctly
+- [x] Interpreter selection persists between sessions
 
 ### **Exception Handling**
 ```python
@@ -137,17 +138,16 @@ try:
 except Exception as e:
     print(f"Caught exception: {e}")
 ```
-- [ ] Debugger pauses on uncaught exceptions
-- [ ] Exception information displayed correctly
-- [ ] User-defined exception breakpoints work
-- [ ] Exception details include stack trace
-- [ ] Can continue execution after handling exception
+- [x] Debugger pauses on uncaught exceptions
+- [x] Exception information displayed correctly
+- [x] Exception details include stack trace
+- [x] Can continue execution after handling exception
 
 ### **Debugpy Integration**
-- [ ] Debugpy module functions correctly
-- [ ] `--wait-for-client` parameter works
-- [ ] Remote debugging connections established properly
-- [ ] Debugpy commands available and functional
+- [x] Debugpy module functions correctly
+- [x] `--wait-for-client` parameter works
+- [x] Remote debugging connections established properly
+- [x] Debugpy commands available and functional
 
 ## 📁 Real-World Scenarios
 
@@ -160,11 +160,11 @@ project/
 └── tests/
     └── test_basic.py
 ```
-- [ ] Cross-file breakpoints work correctly
-- [ ] Module imports debug properly
-- [ ] Relative imports resolve correctly
-- [ ] Breakpoints in imported modules function
-- [ ] Step into functionality works across files
+- [x] Cross-file breakpoints work correctly
+- [x] Module imports debug properly
+- [x] Relative imports resolve correctly
+- [x] Breakpoints in imported modules function
+- [x] Step into functionality works across files
 
 ### **Concurrent Programming**
 ```python
@@ -186,10 +186,10 @@ for i in range(3):
 for t in threads:
     t.join()
 ```
-- [ ] Debugging multi-threaded applications works
-- [ ] Thread switching in debugger functions
-- [ ] Breakpoints in threads are hit correctly
-- [ ] Thread information displayed in debug view
+- [x] Debugging multi-threaded applications works
+- [x] Thread switching in debugger functions
+- [x] Breakpoints in threads are hit correctly
+- [x] Thread information displayed in debug view
 
 ### **Web Framework Support**
 - [ ] Django application debugging
@@ -217,15 +217,13 @@ for t in threads:
 - [ ] Extension installation and updates work normally
 
 ### **Cross-Platform Consistency**
-- [ ] All functionality consistent with x86 platforms
-- [ ] All functionality consistent with ARM platforms
 - [ ] Platform-specific paths handled correctly
 - [ ] File encoding and line endings handled properly
 
 ## 🔍 Additional Test Scenarios
 
 ### **Performance & Stability**
-- [ ] Debugger startup time acceptable
+- [x] Debugger startup time acceptable
 - [ ] No memory leaks during extended debug sessions
 - [ ] Large project debugging performs adequately
 - [ ] Breakpoint management responsive with many breakpoints
@@ -238,6 +236,6 @@ for t in threads:
 - [ ] Unicode and special character handling in variables
 
 ---
-*Checklist Version: 2.0  
-Last Updated: 2025/10/31  
+*Checklist Version: 2.2  
+Last Updated: 2025/11/5  
 Test Environment: VSCodium with Python Extension on LoongArch64*

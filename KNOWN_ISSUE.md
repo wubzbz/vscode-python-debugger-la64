@@ -43,6 +43,9 @@ If this error disappears, then this solution is proved to match with the problem
 > [!IMPORTANT] 
 > Before making any changes, create a backup of your `product.json` file.
 
+> [!TIP]
+> You may need to redo this operation after updates of your Codium.
+
 1. Locate the [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) file in your VSCodium installation directory (typically in `resources/app/product.json`). You probably need a root authentication to edit and save this file.
 2. Find (or add) the `extensionEnabledApiProposals` section, which should contains these items and something else(proposed APIs used by other extensions are defined here, too). Or just use `Ctrl`+`F` to search `debugpy`, in most cases you can navigate to here directly. However, if there's no search result, you may consider adding this entry by yourself.
 
