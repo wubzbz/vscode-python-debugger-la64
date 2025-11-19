@@ -4,28 +4,24 @@
 
 ### **Core Debugger Operations**
 - [x] Run Python script without debug mode
+- [x] Extension installation and updates work normally
 - [x] Display package information correctly
 - [x] Debugger extension can be properly disabled/enabled
 - [x] All bundled libraries are properly installed
+- [x] l10n texts display properly
 - [x] Launch debug session successfully
 - [x] Debug output displayed in terminal
-- [x] Debugger can properly disconnect
 
 ### **Breakpoint Management**
 - [x] Breakpoints are triggered correctly
 - [x] Variable values displayed during debugging
-- [x] Inline breakpoints function properly(Shift+F9)
-- [x] Function breakpoints work as expected
 - [x] Logpoints output messages without stopping
-- [x] Breakpoint section visible in RUN AND DEBUG view
-- [x] Breakpoints in valid code areas work correctly
 - [x] Conditional breakpoints function properly
+- [x] Inline breakpoints function properly(Shift+F9)
+- [x] Breakpoint section visible in RUN AND DEBUG view
 - [x] Exception breakpoints work as expected
 
-## 🔧 Advanced Debugging Features
-
-### **Debugging Controls & UI**
-#### Debug Toolbar
+### **Debug Toolbar UI**
 - [x] Step Over (F10) works correctly
 - [x] Step Into (F11) works correctly
 - [x] Step Out (Shift+F11) works correctly
@@ -33,6 +29,9 @@
 - [x] Restart (Ctrl+Shift+F5) reloads debug session
 - [x] Stop (Shift+F5) terminates debug session
 
+## 🔧 Advanced Debugging Features
+
+### **Debugging Controls**
 #### Launch Methods
 - [x] Debug Python file from editor button
 - [x] Debug Python file using launch.json configuration
@@ -45,7 +44,6 @@
 - [x] Debug sidebar changes color when active (orange/blue)
 - [x] Debug information displayed in sidebar
 - [x] Switch between different debug profiles
-- [x] Print log text in debug console
 - [x] REPL functionality works in debug console
 - [x] Debug console supports expression evaluation
 
@@ -59,37 +57,25 @@
 - [x] Inline Hex Decoder works
 
 ### **Call Stack Management**
-```python
-# test_callstack.py
-def function_a():
-    function_b()  # Check call stack here
-
-def function_b():
-    function_c()
-
-def function_c():
-    x = 1  # Set breakpoint here
-
-function_a()
-```
 - [x] Call stack displays correct function hierarchy
 - [x] Can navigate between stack frames
 - [x] Stack frame variables update when switching frames
 - [x] Call stack preserved during step operations
+    - bit of slow when switching
 
 ### **Command Palette Integration**
-- [x] `debugpy.command.clearCacheAndReload` works
-- [x] `debugpy.command.debugInTerminal` functions
-- [x] `debugpy.command.debugUsingLaunchConfig` works
-- [x] `debugpy.command.reportIssue` accessible
+- [] `debugpy.command.clearCacheAndReload` works
+- [] `debugpy.command.debugInTerminal` functions
+- [] `debugpy.command.debugUsingLaunchConfig` works
+- [] `debugpy.command.reportIssue` accessible
     - (linked to right repo but cannot navigate to issue report page in browser)
 - [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
 #### Settings Validation
-- [x] `debugpy.debugJustMyCode` setting functions correctly
-- [x] `debugpy.showPythonInlineValues` displays inline values
-- [x] Debugger settings persist between sessions
+- [] `debugpy.debugJustMyCode` setting functions correctly
+- [] `debugpy.showPythonInlineValues` displays inline values
+- [] Debugger settings persist between sessions
 
 #### launch.json Configuration
 ```json
@@ -104,28 +90,28 @@ function_a()
     "cwd": "${workspaceFolder}/test_dir"
 }
 ```
-- [x] Command line arguments passed correctly to program
-- [x] Working directory setting functions properly
-- [x] Environment variables set in launch.json take effect
-- [x] JSON comments supported in launch.json
-- [x] Attach to process by PID works correctly
-- [x] Multiple debug configurations can be created and used
+- [] Command line arguments passed correctly to program
+- [] Working directory setting functions properly
+- [] Environment variables set in launch.json take effect
+- [] JSON comments supported in launch.json
+- [] Attach to process by PID works correctly
+- [] Debugger can properly disconnect
+- [] Multiple debug configurations can be created and used
 
 ### **Output & Error Handling**
-- [x] No unexpected errors in OUTPUT panel
-- [x] DAP server path correctly configured
-- [x] Proposed API usage properly handled
-- [x] Warning messages appropriately displayed
-- [x] l10n bundle displayed translation
+- [] No unexpected errors in OUTPUT panel
+- [] DAP server path correctly configured
+- [] Proposed API usage properly handled
+- [] Warning messages appropriately displayed
 
 ## 🐍 Python-Specific Features
 
 ### **Python Environment Management**
 - [x] Correctly detects system Python interpreter
-- [x] Supports virtual environments (venv, conda, ...)
-- [x] Can switch between different Python versions
-- [x] Python path configuration works correctly
-- [x] Interpreter selection persists between sessions
+- [] Supports virtual environments (venv, conda, ...)
+- [] Can switch between different Python versions
+- [] Python path configuration works correctly
+- [] Interpreter selection persists between sessions
 
 ### **Exception Handling**
 ```python
@@ -138,16 +124,16 @@ try:
 except Exception as e:
     print(f"Caught exception: {e}")
 ```
-- [x] Debugger pauses on uncaught exceptions
-- [x] Exception information displayed correctly
-- [x] Exception details include stack trace
-- [x] Can continue execution after handling exception
+- [] Debugger pauses on uncaught exceptions
+- [] Exception information displayed correctly
+- [] Exception details include stack trace
+- [] Can continue execution after handling exception
 
 ### **Debugpy Integration**
-- [x] Debugpy module functions correctly
-- [x] `--wait-for-client` parameter works
-- [x] Remote debugging connections established properly
-- [x] Debugpy commands available and functional
+- [] Debugpy module functions correctly
+- [] `--wait-for-client` parameter works
+- [] Remote debugging connections established properly
+- [] Debugpy commands available and functional
 
 ## 📁 Real-World Scenarios
 
@@ -160,36 +146,17 @@ project/
 └── tests/
     └── test_basic.py
 ```
-- [x] Cross-file breakpoints work correctly
-- [x] Module imports debug properly
-- [x] Relative imports resolve correctly
-- [x] Breakpoints in imported modules function
-- [x] Step into functionality works across files
+- [] Cross-file breakpoints work correctly
+- [] Module imports debug properly
+- [] Relative imports resolve correctly
+- [] Breakpoints in imported modules function
+- [] Step into functionality works across files
 
 ### **Concurrent Programming**
-```python
-# test_threading.py
-import threading
-import time
-
-def worker_function(thread_id):
-    print(f"Thread {thread_id} starting")
-    time.sleep(1)
-    print(f"Thread {thread_id} finished")
-
-threads = []
-for i in range(3):
-    t = threading.Thread(target=worker_function, args=(i,))
-    threads.append(t)
-    t.start()
-
-for t in threads:
-    t.join()
-```
-- [x] Debugging multi-threaded applications works
-- [x] Thread switching in debugger functions
-- [x] Breakpoints in threads are hit correctly
-- [x] Thread information displayed in debug view
+- [] Debugging multi-threaded applications works
+- [] Thread switching in debugger functions
+- [] Breakpoints in threads are hit correctly
+- [] Thread information displayed in debug view
 
 ### **Web Framework Support**
 - [ ] Django application debugging
@@ -207,14 +174,13 @@ for t in threads:
 ## 🏗️ Platform-Specific Tests
 
 ### **LoongArch64 Compatibility**
-- [ ] Extension runs stably on LoongArch64 architecture
 - [x] No native module compatibility issues
     - [x] Verified reliable node_modules: only `keytar` with `.node` files - Compatible
 - [ ] Normal performance characteristics maintained
 - [ ] Normal memory usage patterns observed
 - [ ] All debugger features function identically to x86/ARM
 - [ ] No architecture-specific crashes or errors
-- [ ] Extension installation and updates work normally
+
 
 ### **Cross-Platform Consistency**
 - [ ] Platform-specific paths handled correctly
@@ -236,6 +202,6 @@ for t in threads:
 - [ ] Unicode and special character handling in variables
 
 ---
-*Checklist Version: 2.2  
-Last Updated: 2025/11/5  
+*Checklist Version: 2.3  
+Last Updated: 2025/11/19  
 Test Environment: VSCodium with Python Extension on LoongArch64*
