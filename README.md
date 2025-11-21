@@ -1,5 +1,7 @@
 # Python Debugger extension for Visual Studio Code
 
+⚠️ **Target Platform: linux-loong64**(only)
+
 ## Note: This is an Unofficial Fork
 
 This repository is a **community-maintained** fork of the official VSCode Python Debugger extension, specifically ported to support the **LoongArch64** architecture. This is not an official Microsoft product and is not supported by the original maintainers.

@@ -13,7 +13,6 @@ import { PVSC_ENVS_EXTENSION_ID_FOR_TESTS, PVSC_EXTENSION_ID_FOR_TESTS } from '.
  * 3. fallback to downloadAndUnzipVSCode()
  */
 async function getVSCodeExecutablePath(): Promise<{ executablePath: string; isDownloaded: boolean }> {
-
     const fixedPath = '/usr/bin/codium';
     if (fs.existsSync(fixedPath)) {
         console.log(`Using fixed Codium path: ${fixedPath}`);
@@ -53,7 +52,7 @@ function getCliPath(executablePath: string, isDownloaded: boolean): [string, ...
             return [executablePath];
         }
     }
-    
+
     // return path only if using local Codium
     return [executablePath];
 }
