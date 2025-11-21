@@ -64,11 +64,12 @@
     - bit of slow when switching
 
 ### **Command Palette Integration**
-- [] `debugpy.command.clearCacheAndReload` works
-- [] `debugpy.command.debugInTerminal` functions
-- [] `debugpy.command.debugUsingLaunchConfig` works
-- [] `debugpy.command.reportIssue` accessible
+- [x] `debugpy.command.clearCacheAndReload` works
+- [x] `debugpy.command.debugInTerminal` functions
+- [x] `debugpy.command.debugUsingLaunchConfig` works
+- [x] `debugpy.command.reportIssue` accessible
     - (linked to right repo but cannot navigate to issue report page in browser)
+    - Cannot set properties of undefined (setting 'enabled')
 - [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
@@ -100,34 +101,24 @@
 
 ### **Output & Error Handling**
 - [] No unexpected errors in OUTPUT panel
-- [] DAP server path correctly configured
-- [] Proposed API usage properly handled
-- [] Warning messages appropriately displayed
+- [x] DAP server path correctly configured
+- [x] Proposed API usage properly handled
+- [x] Warning messages appropriately displayed
 
 ## 🐍 Python-Specific Features
 
 ### **Python Environment Management**
 - [x] Correctly detects system Python interpreter
-- [] Supports virtual environments (venv, conda, ...)
-- [] Can switch between different Python versions
-- [] Python path configuration works correctly
-- [] Interpreter selection persists between sessions
+- [x] Supports virtual environments (venv, conda, ...)
+- [x] Can switch between different Python versions
+- [x] Python path configuration works correctly
+- [x] Interpreter selection persists between sessions
 
 ### **Exception Handling**
-```python
-# test_exceptions.py
-def risky_operation():
-    return 1 / 0  # Zero division error
-
-try:
-    risky_operation()
-except Exception as e:
-    print(f"Caught exception: {e}")
-```
-- [] Debugger pauses on uncaught exceptions
-- [] Exception information displayed correctly
-- [] Exception details include stack trace
-- [] Can continue execution after handling exception
+- [x] Debugger pauses on uncaught exceptions
+- [x] Exception information displayed correctly
+- [x] Exception details include stack trace
+- [x] Can continue execution after handling exception
 
 ### **Debugpy Integration**
 - [] Debugpy module functions correctly
@@ -153,10 +144,10 @@ project/
 - [] Step into functionality works across files
 
 ### **Concurrent Programming**
-- [] Debugging multi-threaded applications works
-- [] Thread switching in debugger functions
-- [] Breakpoints in threads are hit correctly
-- [] Thread information displayed in debug view
+- [x] Debugging multi-threaded applications works
+- [x] Thread switching in debugger functions
+- [x] Breakpoints in threads are hit correctly
+- [x] Thread information displayed in debug view
 
 ### **Web Framework Support**
 - [ ] Django application debugging
