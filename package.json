@@ -2,7 +2,7 @@
     "name": "debugpy",
     "displayName": "Python Debugger for LoongArch",
     "description": "Python Debugger extension using debugpy.",
-    "version": "2025.16.0",
+    "version": "2025.18.0",
     "publisher": "wubzbz",
     "enabledApiProposals": [
         "portsAttributes",
@@ -256,6 +256,24 @@
                                 "description": "Enable logging of debugger events to a log file. This file can be found in the debugpy extension install folder.",
                                 "type": "boolean"
                             },
+                            "terminalQuoteCharacter": {
+                                "default": null,
+                                "description": "The quoting character to be used by the debugger when quoting terminal commands.",
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "enum": [
+                                    "\"",
+                                    "'",
+                                    "`"
+                                ],
+                                "enumDescriptions": [
+                                    "Double quote (\")",
+                                    "Single quote (')",
+                                    "Backtick (`)"
+                                ]
+                            },
                             "pathMappings": {
                                 "default": [],
                                 "items": {
@@ -452,6 +470,24 @@
                                 "description": "Enable logging of debugger events to a log file. This file can be found in the debugpy extension install folder.",
                                 "type": "boolean"
                             },
+                            "terminalQuoteCharacter": {
+                                "default": null,
+                                "description": "The quoting character to be used by the debugger when quoting terminal commands.",
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "enum": [
+                                    "\"",
+                                    "'",
+                                    "`"
+                                ],
+                                "enumDescriptions": [
+                                    "Double quote (\")",
+                                    "Single quote (')",
+                                    "Backtick (`)"
+                                ]
+                            },
                             "module": {
                                 "default": "",
                                 "description": "Name of the module to be debugged.",
@@ -610,7 +646,8 @@
         "format-fix": "prettier --write 'src/**/*.ts' 'build/**/*.yml' '.github/**/*.yml'",
         "test": "node ./out/test/runTest.js",
         "vsce-package": "npx @vscode/vsce package -o python-debugger.vsix",
-        "l10n-export": "npx @vscode/l10n-dev export -o ./l10n ./src"
+        "l10n-export": "npx @vscode/l10n-dev export -o ./l10n ./src",
+        "vsce-package-pre": "vsce package -o python-debugger.vsix --pre-release"
     },
     "devDependencies": {
         "@types/chai": "^4.1.2",
