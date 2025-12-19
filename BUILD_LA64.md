@@ -11,14 +11,40 @@ This document describes how to build the VSCode Python Debugger extension VSIX p
 - LoongArch64 architecture operating system
 - VSCodium (LoongArch64 version)
 - Python 3.9+ and pip
-- [Node.js 22 and npm](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
+- [Node.js 22 LTS and npm 10](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
 - Git
 
 ### Software Installation
 
-#### 1. Install Node.js 22 and npm
+#### 1. Install Node.js 22 and npm 10
 
 See [this page](https://docs.loongnix.cn/nodejs/Doc/list/02.Node.js%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E.html).
+
+Starting with v2025.18.0, this fork has upgraded to **npm 10** (bundled with Node.js 22 LTS) as the package manager. An important related change is: 
+
+- The [`package-lock.json`](https://github.com/wubzbz/vscode-python-debugger-la64/blob/main/package-lock.json) file in this project is now generated in **Lockfile v3** format, 
+- while the upstream source may still be using the older Lockfile v2 format.
+
+Our Strategy: To ensure optimal compatibility and performance, this fork will maintain an independent dependency lockfile based on Lockfile v3. After merging upstream code changes, we typically **regenerate this file** based on the updated `package.json` and loongnix npm registry.
+
+**What This Means for You:**
+
+- Cloning/Installation: Use the `package-lock.json` from this repository directly; running `npm ci` will give you a consistent environment.
+
+- Merging Upstream Changes: If dependencies in `package.json` are updated, you may need to run `npm install` on this branch to regenerate a new lockfile.
+
+- Dependency Differences: Due to architectural or toolchain differences, some dependency versions may slightly differ from upstream. Such variations are controlled and validated:
+
+| Package name | Upstream version | Current version |
+| --- | --- | --- |
+| tmp | 0.2.4 | 0.2.5 |
+| js-yaml | 4.1.1 | 4.1.0 |
+| fsevents | 2.3.2 | N/A[^1] |
+
+[^1]: Optional module for Darwin.
+
+This change is made to adapt to modern toolchains and improve the development experience. If you have any questions, please discuss them in the relevant Issues.
+
 
 #### 2. Install Python 3.9+
 
@@ -63,7 +89,7 @@ npm ci --prefer-offline
 ### 4. Install Bundled Python Libraries
 
 ```bash
-pipx run nox --session install_bundled_libs
+nox --session install_bundled_libs
 ```
 
 ### 5. Code Quality Checks
@@ -82,7 +108,7 @@ npm run format-check
 
 ```bash
 # Check Python code linting and formatting
-pipx run nox --session lint
+nox --session lint
 ```
 
 ### 6. Compilation and Testing
@@ -96,12 +122,14 @@ npm run test
 > [!NOTE]
 > On LoongArch64 architecture, the test framework automatically uses the locally installed VSCodium instead of downloading the x86 version of VSCode, which is different from the official extension.
 
+Open VS Codium RUN AND DEBUG panel, choose `Bash Unit Tests`, a tuned test configuration for loong64, to run unit tests. Similarly, choose `Base Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+
 ### 7. Update Build Number (Optional)
 
 Update the build number if you like:
 
 ```bash
-pipx run nox --session update_build_number -- <build_ID>
+nox --session update_build_number -- <build_ID>
 ```
 
 ### 8. Build VSIX Package
