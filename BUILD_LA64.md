@@ -11,12 +11,12 @@ This document describes how to build the VSCode Python Debugger extension VSIX p
 - LoongArch64 architecture operating system
 - VSCodium (LoongArch64 version)
 - Python 3.9+ and pip
-- [Node.js and npm](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
+- [Node.js 22 and npm](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
 - Git
 
 ### Software Installation
 
-#### 1. Install Node.js and npm
+#### 1. Install Node.js 22 and npm
 
 See [this page](https://docs.loongnix.cn/nodejs/Doc/list/02.Node.js%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E.html).
 
