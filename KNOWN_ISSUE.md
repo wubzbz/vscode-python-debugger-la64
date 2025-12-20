@@ -38,53 +38,7 @@ codium --enable-proposed-api wubzbz.debugpy
 
 If this error disappears, then this solution is proved to match with the problem you encountered. Next, you can try steps shown below.
 
-#### 2. Permanent Solution 1: Edit product.json
-
-> [!IMPORTANT] 
-> Before making any changes, create a backup of your `product.json` file.
-
-> [!TIP]
-> You may need to redo this operation after updates of your Codium. Thus, a better practice is to [configure your `argv.json` file](#3-permanent-solution-2-edit-argvjson).
-
-1. Locate the [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) file in your VSCodium installation directory (typically in `resources/app/product.json`). You probably need a root authentication to edit and save this file.
-2. Find (or add) the `extensionEnabledApiProposals` section, which should contains these items and something else(proposed APIs used by other extensions are defined here, too). Or just use `Ctrl`+`F` to search `debugpy`, in most cases you can navigate to here directly. However, if there's no search result, you may consider adding this entry by yourself.
-
-```json
-// product.json
-{
-    ...(other sections)
-    "extensionEnabledApiProposals": [
-        ...(other extensions)
-        "ms-python.vscode-pylance": [
-        "terminalShellEnv",
-        "portsAttributes"
-        ],
-        "ms-python.debugpy": [
-        "contribViewsWelcome",
-        "debugVisualization",
-        "portsAttributes"
-        ],
-        // we need to add an entry here
-        ...(other extensions)
-    ],
-    ...(other sections)
-}
-```
-
-3. Add proposed APIs entry for `wubzbz.debugpy`. You can place it below `ms-python.debugpy`'s entry, or somewhere else in the `extensionEnabledApiProposals` section. But directly modify `ms-python.debugpy` to 
-`wubzbz.debugpy` is not recommended.
-
-```json
-        "wubzbz.debugpy": [
-        "contribViewsWelcome",
-        "debugVisualization",
-        "portsAttributes"
-        ],
-```
-
-4. Restart VSCodium.
-
-#### 3. Permanent Solution 2: Edit argv.json
+#### 2. Permanent Solution: Edit argv.json
 
 > [!IMPORTANT] 
 > Before making any changes, create a backup of your `argv.json` file.
@@ -105,11 +59,9 @@ If this error disappears, then this solution is proved to match with the problem
 
 [**Proposed APIs**](https://code.visualstudio.com/api/advanced-topics/using-proposed-api) are experimental features in VS Code/VSCodium that are still under development and not yet stable for general use. They allow extension developers to test new functionality before official release.
 
-In official distribution builds, these APIs are typically **disabled** by default for stability reasons. However, as you have seen in the `extensionEnabledApiProposals` section of `product.json` file, the official VS Code and VS Codium product include pre-approved exceptions in [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) configuration for certain Microsoft and GitHub extensions (like `ms-python.debugpy`), allowing them to use specific Proposed APIs even in release builds.
+In official distribution builds, these APIs are typically **disabled** by default for stability reasons. However, the official VS Code and VS Codium product include pre-approved exceptions in [`product.json`](https://github.com/VSCodium/vscodium/blob/master/product.json) configuration for certain Microsoft and GitHub extensions (like `ms-python.debugpy`), allowing them to use specific Proposed APIs even in release builds.
 
 Since this project is a port to loongarch64 architecture with a different extension identifier (`wubzbz.debugpy` instead of the official `ms-python.debugpy`), it doesn't benefit from these pre-approved exceptions in VSCodium. Users need to manually enable the Proposed APIs for this extension using one of the methods above.
-
-This is a security and stability feature of VSCodium/VS Code, ensuring that experimental APIs are only used when explicitly permitted by the user.
 
 #### Related links
 
@@ -175,8 +127,6 @@ This issue occurs because multiple extensions are trying to register the same co
 - **Settings** (like `debugpy.debugJustMyCode`)
 
 The official Microsoft debugpy extension (`ms-python.debugpy`) and our loongarch64 port (`wubzbz.debugpy`) both attempt to register identical functionality, causing conflicts during activation.
-
-This is a fundamental limitation of the VSCode extension system - only one extension can own a particular command or setting identifier at a time.
 
 
 ## 3. 'npm: command not found' During Debugging Extension
@@ -249,7 +199,7 @@ This approach maintains nvm's environment setup while working within VS Code's t
 
 ## 4. "Create a launch.json" Button Failure in Non-English Environments
 
-- **Status**: Fixed upstream (refer to VSCode Pull Request [#271707](https://github.com/microsoft/vscode/pull/271707)). Awaiting integration into subsequent VSCode releases.
+- **Status**: Fixed upstream (refer to VSCode Pull Request [#271707](https://github.com/microsoft/vscode/pull/271707)).
 
 <img width="284" height="187" alt="图片" src="https://github.com/user-attachments/assets/650f4745-396f-4bf8-93fe-8203c0fc7784" />
 
@@ -268,25 +218,11 @@ When the display language is set to a non-English language in VSCode/VSCodium:
 
 ### Solution
 
-1.  **Switch VSCode Language to English (Temporary Workaround)**:
-    - Open the Command Palette (`Ctrl+Shift+P`)
-    - Execute `Configure Display Language`
-    - Set the `locale` to `"en"`
-    - Restart VSCode. The button should now function correctly
-
-2. **Create `launch.json` via Editor Button**:
-    - Click the down arrow located at the right side of the "Run and Debug" play button in the top-right corner of the editor window.
-    - Select "Python Debugger: Debug using launch.json" from the dropdown menu.
-    - Then choose "Python Debugger: Current File" (or your preferred debug configuration).
-    - This will automatically generate a valid launch.json file in your project's .vscode folder.
-
-<img width="370" height="276" alt="图片" src="https://github.com/user-attachments/assets/c25c31dc-2183-46f0-9c88-f414d421278d" />
-
-3.  **Wait for the Update**: Since a fix has been merged upstream, this issue should be resolved in future VSCode updates. Regularly update your VSCodium.
+This issue is resolved in VSCode updates. Regularly update your VSCodium.
 
 ### Root Cause
 
-During the localization process for non-English interfaces, VSCode incorrectly translated and handled the file name `launch.json`. This led to the debugger failing to find the correct command when the button was clicked in a non-English environment. The core issue was a mislocalized string, which has been addressed in the upstream fix.
+The core issue was a mislocalized string, which has been addressed in the upstream fix.
 
 #### Related links
 

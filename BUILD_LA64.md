@@ -9,16 +9,24 @@ This document describes how to build the VSCode Python Debugger extension VSIX p
 ### System Requirements
 
 - LoongArch64 architecture operating system
-- VSCodium (LoongArch64 version)
-- Python 3.9+ and pip
-- [Node.js 22 LTS and npm 10](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
+- **VSCodium 1.92.0+** (LoongArch64 version)
+- **Python 3.9+** and **pip**
+- [**Node.js 22 LTS** and **npm 10**](https://www.loongnix.cn/zh/api/nodejs/) (LoongArch64 version)
 - Git
 
 ### Software Installation
 
 #### 1. Install Node.js 22 and npm 10
 
-See [this page](https://docs.loongnix.cn/nodejs/Doc/list/02.Node.js%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E.html).
+See loongnix's [instruction](https://docs.loongnix.cn/nodejs/Doc/list/02.Node.js%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E.html) on Node.js installation.
+
+```bash
+node --version
+v22.21.1
+
+npm --version
+10.x.x
+```
 
 Starting with v2025.18.0, this fork has upgraded to **npm 10** (bundled with Node.js 22 LTS) as the package manager. An important related change is: 
 
@@ -37,8 +45,6 @@ Our Strategy: To ensure optimal compatibility and performance, this fork will ma
 
 | Package name | Upstream version | Current version |
 | --- | --- | --- |
-| tmp | 0.2.4 | 0.2.5 |
-| js-yaml | 4.1.1 | 4.1.0 |
 | fsevents | 2.3.2 | N/A[^1] |
 
 [^1]: Optional module for Darwin.
@@ -48,14 +54,15 @@ This change is made to adapt to modern toolchains and improve the development ex
 
 #### 2. Install Python 3.9+
 
+Ensure Python 3.9 or later is installed on your machine.
+
 ```bash
-# Ensure Python 3.9 or later is installed
 python3 --version
 ```
 
 #### 3. Install VSCodium
 
-Download [here](https://vscodium.com/).
+Download [the latest version](https://vscodium.com/).
 
 ## Build Steps
 
@@ -122,7 +129,9 @@ npm run test
 > [!NOTE]
 > On LoongArch64 architecture, the test framework automatically uses the locally installed VSCodium instead of downloading the x86 version of VSCode, which is different from the official extension.
 
-Open VS Codium RUN AND DEBUG panel, choose `Bash Unit Tests`, a tuned test configuration for loong64, to run unit tests. Similarly, choose `Base Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+Open VS Codium RUN AND DEBUG panel, choose `Bash Unit Tests`, a tuned test configuration for loong64, to run unit tests. 
+
+Similarly, choose `Base Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
 
 ### 7. Update Build Number (Optional)
 
