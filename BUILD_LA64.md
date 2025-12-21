@@ -60,9 +60,13 @@ Ensure Python 3.9 or later is installed on your machine.
 python3 --version
 ```
 
-#### 3. Install VSCodium
+#### 3. Install VSCodium and Recommended Extensions
 
-Download [the latest version](https://vscodium.com/).
+Download [the latest version](https://vscodium.com/) of VS Codium.
+
+Install and enable [`dbaeumer.vscode-eslint`](https://open-vsx.org/extension/dbaeumer/vscode-eslint), [`amodio.tsl-problem-matcher`](https://open-vsx.org/extension/amodio/tsl-problem-matcher), and [`loong-vsx.ruff`](https://open-vsx.org/extension/loong-vsx/ruff) before starting your development.
+
+> `loong-vsx.ruff` is ruff extension's loong64 port. This extension, instead of the original `charliermarsh.ruff`, is adopted based on the same reason why this fork exists.
 
 ## Build Steps
 
