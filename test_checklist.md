@@ -8,6 +8,7 @@
 - [x] Display package information correctly
 - [x] Debugger extension can be properly disabled/enabled
 - [x] All bundled libraries are properly installed
+- [x] nls texts display properly
 - [x] l10n texts display properly
 - [x] Launch debug session successfully
 - [x] Debug output displayed in terminal
@@ -51,22 +52,24 @@
 - [x] Local variables display correctly
 - [x] Object properties can be expanded and inspected
 - [x] Watch expressions update and display properly
-- [] Array/list contents displayed correctly
-- [] Global variables accessible during debugging
-- [] Variable values update during stepping
-- [] Inline Hex Decoder works
+- [x] Array/list contents displayed correctly
+- [x] Global variables accessible during debugging
+- [x] Variable values update during stepping
+- [x] Inline Hex Decoder works
 
 ### **Call Stack Management**
-- [] Call stack displays correct function hierarchy
-- [] Can navigate between stack frames
-- [] Stack frame variables update when switching frames
-- [] Call stack preserved during step operations
-    - bit of slow when switching
+- [x] Call stack displays correct function hierarchy
+- [x] Can navigate between stack frames
+- [x] Stack frame variables update when switching frames
+- [x] Call stack preserved during step operations
+    - ~~bit of slow when switching~~
 
 ### **Command Palette Integration**
 - [x] `debugpy.command.clearCacheAndReload` works
-- [] `debugpy.command.debugInTerminal` functions
-- [] `debugpy.command.debugUsingLaunchConfig` works
+- [x] `debugpy.command.debugInTerminal` functions
+- [x] `debugpy.command.debugUsingLaunchConfig` works
+    - :warning: direct use of this command leads to open and debug `launch.json` file
+    - same on x86.
 - [x] `debugpy.command.reportIssue` accessible
     - (linked to right repo but cannot navigate to issue report page in browser)
     - Cannot set properties of undefined (setting 'enabled') `persists in v2025.18`
@@ -91,15 +94,15 @@
     "cwd": "${workspaceFolder}/test_dir"
 }
 ```
-- [] Command line arguments passed correctly to program
-- [] Working directory setting functions properly
-- [] Environment variables set in launch.json take effect
-- [] Attach to process by listening to port works correctly
-- [] Multiple debug configurations can be created and used
-- [] Three kinds of terminal display output
+- [x] Command line arguments passed correctly to program
+- [x] Working directory setting functions properly
+- [x] Environment variables set in launch.json take effect
+- [x] Attach to process by listening to port works correctly
+- [x] Multiple debug configurations can be created and used
+- [x] Three kinds of terminal display output
 
 ### **Output & Error Handling**
-- [ ] No unexpected errors in OUTPUT panel
+- [x] No unexpected errors in OUTPUT panel
 - [x] DAP server path correctly configured
 - [x] Proposed API usage properly handled
 - [x] Warning messages appropriately displayed
@@ -109,37 +112,37 @@
 ### **Python Environment Management**
 - [x] Correctly detects system Python interpreter
 - [x] Supports virtual environments (venv, conda, ...)
-- [] Can switch between different Python versions
+- [x] Can switch between different Python versions
 - [x] Python path configuration works correctly
-- [] Interpreter selection persists between sessions
+- [x] Interpreter selection persists between sessions
 
 ### **Exception Handling**
-- [] Debugger pauses on uncaught exceptions
-- [] Exception information displayed correctly
-- [] Exception details include stack trace
-- [] Can continue execution after handling exception
+- [x] Debugger pauses on uncaught exceptions
+- [x] Exception information displayed correctly
+- [x] Exception details include stack trace
+- [x] Can continue execution after handling exception
 
 ### **Debugpy Integration**
-- [] Debugpy module functions correctly
-- [] `--wait-for-client` parameter works
-- [] Remote debugging connections established properly
-- [] Debugpy commands available and functional
-- [] Debugger can properly disconnect
+- [x] Debugpy module functions correctly
+- [x] `--wait-for-client` parameter works
+- [x] Remote debugging connections established properly
+- [x] Debugpy commands available and functional
+- [x] Debugger can properly disconnect
 
 ## 📁 Real-World Scenarios
 
 ### **Multi-file Project Debugging**
-- [] Cross-file breakpoints work correctly
-- [] Module imports debug properly
-- [] Relative imports resolve correctly
-- [] Breakpoints in imported modules function
-- [] Step into functionality works across files
+- [x] Cross-file breakpoints work correctly
+- [x] Module imports debug properly
+- [x] Relative imports resolve correctly
+- [x] Breakpoints in imported modules function
+- [x] Step into functionality works across files
 
 ### **Concurrent Programming**
-- [] Debugging multi-threaded applications works
-- [] Thread switching in debugger functions
-- [] Breakpoints in threads are hit correctly
-- [] Thread information displayed in debug view
+- [x] Debugging multi-threaded applications works
+- [x] Thread switching in debugger functions
+- [x] Breakpoints in threads are hit correctly
+- [x] Thread information displayed in debug view
 
 ### **Web Framework Support**
 - [ ] Django application debugging
