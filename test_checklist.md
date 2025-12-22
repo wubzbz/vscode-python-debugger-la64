@@ -8,6 +8,7 @@
 - [x] Display package information correctly
 - [x] Debugger extension can be properly disabled/enabled
 - [x] All bundled libraries are properly installed
+- [x] nls texts display properly
 - [x] l10n texts display properly
 - [x] Launch debug session successfully
 - [x] Debug output displayed in terminal
@@ -38,7 +39,7 @@
 - [x] Launch debugger from RUN AND DEBUG view - Python Debugger
 - [x] Launch debugger from RUN AND DEBUG view - Custom configuration
 - [x] Add new debug configuration
-- [ ] ~~Generate launch.json from RUN AND DEBUG view~~ waiting for upstream...
+- [x] Generate launch.json from RUN AND DEBUG view
 
 #### Debug Interface Elements
 - [x] Debug sidebar changes color when active (orange/blue)
@@ -61,15 +62,17 @@
 - [x] Can navigate between stack frames
 - [x] Stack frame variables update when switching frames
 - [x] Call stack preserved during step operations
-    - bit of slow when switching
+    - ~~bit of slow when switching~~
 
 ### **Command Palette Integration**
 - [x] `debugpy.command.clearCacheAndReload` works
 - [x] `debugpy.command.debugInTerminal` functions
 - [x] `debugpy.command.debugUsingLaunchConfig` works
+    - :warning: direct use of this command leads to open and debug `launch.json` file
+    - same on x86.
 - [x] `debugpy.command.reportIssue` accessible
     - (linked to right repo but cannot navigate to issue report page in browser)
-    - Cannot set properties of undefined (setting 'enabled')
+    - Cannot set properties of undefined (setting 'enabled') `persists in v2025.18`
 - [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
@@ -99,7 +102,7 @@
 - [x] Three kinds of terminal display output
 
 ### **Output & Error Handling**
-- [ ] No unexpected errors in OUTPUT panel
+- [x] No unexpected errors in OUTPUT panel
 - [x] DAP server path correctly configured
 - [x] Proposed API usage properly handled
 - [x] Warning messages appropriately displayed
@@ -158,33 +161,28 @@
 
 ### **LoongArch64 Compatibility**
 - [x] No native module compatibility issues
-    - [x] Verified reliable node_modules: only `keytar` with `.node` files - Compatible
+    - Verified reliable node_modules: only `keytar` with `.node` files - Compatible
 - [ ] Normal performance characteristics maintained
 - [ ] Normal memory usage patterns observed
 - [ ] All debugger features function identically to x86/ARM
 - [ ] No architecture-specific crashes or errors
 
-
-### **Cross-Platform Consistency**
-- [ ] Platform-specific paths handled correctly
-- [ ] File encoding and line endings handled properly
-
 ## 🔍 Additional Test Scenarios
 
 ### **Performance & Stability**
-- [x] Debugger startup time acceptable
+- [ ] Debugger startup time acceptable
 - [ ] No memory leaks during extended debug sessions
 - [ ] Large project debugging performs adequately
 - [ ] Breakpoint management responsive with many breakpoints
 
 ### **Edge Cases**
-- [ ] Debugging scripts with syntax errors
+- [x] Debugging scripts with syntax errors
 - [ ] Handling of infinite loops during debugging
 - [ ] Debugger recovery after target process crashes
 - [ ] Large data structure inspection performance
-- [ ] Unicode and special character handling in variables
+- [x] Unicode and special character handling in variables
 
 ---
-*Checklist Version: 2.3  
-Last Updated: 2025/11/19  
+*Checklist Version: 2.4  
+Last Updated: 2025/12/21  
 Test Environment: VSCodium with Python Extension on LoongArch64*
