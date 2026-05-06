@@ -11,6 +11,6 @@ bundled/libs/
 **/.vs
 
 # Generated files (sources live in pre-built/)
-l10n/bundle.l10n.*.json
-package.nls.*.json
+# l10n/bundle.l10n.*.json
+# package.nls.*.json
 telemetry.json
