@@ -135,7 +135,9 @@ npm run test
 
 Open VS Codium RUN AND DEBUG panel, choose `Bash Unit Tests`, a tuned test configuration for loong64, to run unit tests. 
 
-Similarly, choose `Base Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+Similarly, choose `Bash Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+
+You may need to disable or temporary uninstall the existing python debugger extension before running `Bash Run Extension` task in order to prevent any possible conflicts.
 
 ### 7. Update Build Number (Optional)
 
