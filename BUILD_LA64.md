@@ -84,8 +84,8 @@ cd vscode-python-debugger
 python3 -m pip install -U pip pipx wheel
 
 # Create virtual environment (optional but recommended)
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 
 # Install nox
 pip install nox
