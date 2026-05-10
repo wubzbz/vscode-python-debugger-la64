@@ -74,7 +74,7 @@ Install and enable [`dbaeumer.vscode-eslint`](https://open-vsx.org/extension/dba
 
 ```bash
 git clone https://github.com/wubzbz/vscode-python-debugger-la64.git
-cd vscode-python-debugger
+cd vscode-python-debugger-la64
 ```
 
 ### 2. Set Up Python Environment
