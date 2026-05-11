@@ -9,7 +9,7 @@ See [Build Guide for LoongArch64](./BUILD_LA64.md).
 Follow the steps below for setup:
 ```
 git clone https://github.com/wubzbz/vscode-python-debugger-la64.git
-cd vscode-python-debugger
+cd vscode-python-debugger-la64
 npm ci
 ```
 
