@@ -62,17 +62,13 @@
 - [x] Can navigate between stack frames
 - [x] Stack frame variables update when switching frames
 - [x] Call stack preserved during step operations
-    - ~~bit of slow when switching~~
 
 ### **Command Palette Integration**
 - [x] `debugpy.command.clearCacheAndReload` works
 - [x] `debugpy.command.debugInTerminal` functions
 - [x] `debugpy.command.debugUsingLaunchConfig` works
-    - :warning: direct use of this command leads to open and debug `launch.json` file
-    - same on x86.
 - [x] `debugpy.command.reportIssue` accessible
-    - (linked to right repo but cannot navigate to issue report page in browser)
-    - Cannot set properties of undefined (setting 'enabled') `persists in v2025.18`
+    - Cannot set properties of undefined (setting 'enabled') `persists in v2026.6`
 - [x] `debugpy.command.viewOutput` displays output
 
 ### **Configuration & Settings**
@@ -124,7 +120,7 @@
 
 ### **Debugpy Integration**
 - [x] Debugpy module functions correctly
-- [x] `--wait-for-client` parameter works
+- [x] `debugpy.wait_for_client()` works
 - [x] Remote debugging connections established properly
 - [x] Debugpy commands available and functional
 - [x] Debugger can properly disconnect
@@ -161,7 +157,7 @@
 
 ### **LoongArch64 Compatibility**
 - [x] No native module compatibility issues
-    - Verified reliable node_modules: only `keytar` with `.node` files - Compatible
+    - Verified reliable node_modules: only `keytar` and `@vscode/windows-process-tree` with `.node` files - Compatible
 - [ ] Normal performance characteristics maintained
 - [ ] Normal memory usage patterns observed
 - [ ] All debugger features function identically to x86/ARM

@@ -4,7 +4,7 @@
 
 ## Note: This is an Unofficial Fork
 
-This repository is a **community-maintained** fork of the official VSCode Python Debugger extension, specifically ported to support the **LoongArch64** architecture. This is not an official Microsoft product and is not supported by the original maintainers.
+This repository is a **community-maintained** fork of the official VSCode Python Debugger extension, specifically ported to support the **LoongArch64** architecture. **This is NOT an official Microsoft product** and is not supported by the original maintainers. And this project is **NOT governed, signed, or endorsed by Microsoft**.
 
 - Original Project: [link to original repo](https://github.com/microsoft/vscode-python-debugger).
 
@@ -33,10 +33,22 @@ While the official [Python Debugger extension](https://marketplace.visualstudio.
 
 - **Codebase alignment**: We track upstream changes and aim to minimize divergence
 
+## License
+
+This fork is released under the same MIT License as the original project.  
+All original copyright notices and license terms are retained.  
+The software is provided “**as is**”, without warranty of any kind.  
+See [LICENSE](./LICENSE) for the full license text.
+
+## Trademarks
+
+This project may reference Microsoft and third-party trademarks.
+Such references follow [Microsoft’s Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general)
+and do not imply endorsement. All trademarks are the property of their respective owners.
 
 ---
 
-# Readme
+# Original Readme
 
 A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that supports Python debugging with debugpy. Python Debugger provides a seamless debugging experience by allowing you to set breakpoints, step through code, inspect variables, and perform other essential debugging tasks. The debugpy extension offers debugging support for various types of Python applications including scripts, web applications, remote processes, and multi-threaded processes. 
 

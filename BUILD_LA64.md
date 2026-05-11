@@ -74,7 +74,7 @@ Install and enable [`dbaeumer.vscode-eslint`](https://open-vsx.org/extension/dba
 
 ```bash
 git clone https://github.com/wubzbz/vscode-python-debugger-la64.git
-cd vscode-python-debugger
+cd vscode-python-debugger-la64
 ```
 
 ### 2. Set Up Python Environment
@@ -84,8 +84,8 @@ cd vscode-python-debugger
 python3 -m pip install -U pip pipx wheel
 
 # Create virtual environment (optional but recommended)
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 
 # Install nox
 pip install nox
@@ -135,7 +135,9 @@ npm run test
 
 Open VS Codium RUN AND DEBUG panel, choose `Bash Unit Tests`, a tuned test configuration for loong64, to run unit tests. 
 
-Similarly, choose `Base Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+Similarly, choose `Bash Run Extension` if you want to check if the extension works well in test environment. `Unit Tests` and `Run Extension` is the upstream version which may not work on LoongArch.
+
+You may need to disable or temporary uninstall the existing python debugger extension before running `Bash Run Extension` task in order to prevent any possible conflicts.
 
 ### 7. Update Build Number (Optional)
 
