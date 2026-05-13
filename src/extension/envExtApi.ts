@@ -1264,7 +1264,7 @@ export interface PythonEnvironmentApi
         PythonExecutionApi,
         PythonEnvironmentVariablesApi {}
 
-export const PEVSC_EXTENSION_ID = 'ms-python.vscode-python-envs';
+export const PEVSC_EXTENSION_ID = 'wubzbz.vscode-python-envs';
 
 // export interface PythonEnvsExtension {
 //  api: () => Promise<PythonEnvsExtension>;

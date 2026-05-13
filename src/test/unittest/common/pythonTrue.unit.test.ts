@@ -39,7 +39,7 @@ suite('Python API Tests- useEnvironmentsExtension:true', () => {
 
         // Create mock Python extension
         mockPythonExtension = {
-            id: 'ms-python.python',
+            id: 'wubzbz.python',
             extensionUri: Uri.file(MOCK_PATH),
             extensionPath: MOCK_PATH,
             isActive: true,
@@ -51,7 +51,7 @@ suite('Python API Tests- useEnvironmentsExtension:true', () => {
 
         // Create mock Python Envs extension
         mockEnvsExtension = {
-            id: 'ms-python.vscode-python-envs',
+            id: 'wubzbz.vscode-python-envs',
             extensionUri: Uri.file(MOCK_PATH),
             extensionPath: MOCK_PATH,
             isActive: true,
@@ -74,8 +74,8 @@ suite('Python API Tests- useEnvironmentsExtension:true', () => {
         };
 
         // Setup default behavior
-        getExtensionStub.withArgs('ms-python.python').returns(mockPythonExtension);
-        getExtensionStub.withArgs('ms-python.vscode-python-envs').returns(mockEnvsExtension);
+        getExtensionStub.withArgs('wubzbz.python').returns(mockPythonExtension);
+        getExtensionStub.withArgs('wubzbz.vscode-python-envs').returns(mockEnvsExtension);
     });
 
     teardown(() => {
@@ -101,7 +101,7 @@ suite('Python API Tests- useEnvironmentsExtension:true', () => {
         test('Should handle errors gracefully when python extension is not available', async () => {
             const disposables: Disposable[] = [];
             // Return undefined extension to simulate extension not found
-            getExtensionStub.withArgs('ms-python.vscode-python-envs').returns(undefined);
+            getExtensionStub.withArgs('wubzbz.vscode-python-envs').returns(undefined);
 
             await pythonApi.initializePython(disposables);
 

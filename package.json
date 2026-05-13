@@ -636,7 +636,7 @@
         ]
     },
     "extensionDependencies": [
-        "ms-python.python"
+        "wubzbz.python"
     ],
     "scripts": {
         "vscode:prepublish": "npm run package",

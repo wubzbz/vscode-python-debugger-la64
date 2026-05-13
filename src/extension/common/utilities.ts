@@ -17,7 +17,7 @@ export function getExtension<T = unknown>(extensionId: string): Extension<T> | u
     return extensions.getExtension(extensionId);
 }
 let _useExt: boolean | undefined;
-export const ENVS_EXTENSION_ID = 'ms-python.vscode-python-envs';
+export const ENVS_EXTENSION_ID = 'wubzbz.vscode-python-envs';
 
 export function useEnvExtension(): boolean {
     if (_useExt !== undefined) {

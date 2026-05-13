@@ -33,7 +33,7 @@ suite('Python API Tests - useEnvironmentsExtension:false', () => {
 
         // Create mock Python extension
         mockPythonExtension = {
-            id: 'ms-python.python',
+            id: 'wubzbz.python',
             extensionUri: Uri.file('/mock/path'),
             extensionPath: '/mock/path',
             isActive: true,
@@ -45,7 +45,7 @@ suite('Python API Tests - useEnvironmentsExtension:false', () => {
 
         // Create mock Python Envs extension
         mockEnvsExtension = {
-            id: 'ms-python.vscode-python-envs',
+            id: 'wubzbz.vscode-python-envs',
             extensionUri: Uri.file('/mock/path'),
             extensionPath: '/mock/path',
             isActive: true,
@@ -77,8 +77,8 @@ suite('Python API Tests - useEnvironmentsExtension:false', () => {
         };
 
         // Setup default behavior
-        getExtensionStub.withArgs('ms-python.python').returns(mockPythonExtension);
-        getExtensionStub.withArgs('ms-python.vscode-python-envs').returns(mockEnvsExtension);
+        getExtensionStub.withArgs('wubzbz.python').returns(mockPythonExtension);
+        getExtensionStub.withArgs('wubzbz.vscode-python-envs').returns(mockEnvsExtension);
         (pythonApi as any)._useExt = false;
     });
 

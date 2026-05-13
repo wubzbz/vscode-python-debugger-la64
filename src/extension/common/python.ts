@@ -34,7 +34,7 @@ async function activateExtensions() {
 }
 
 async function activatePythonExtension() {
-    const extension = extensions.getExtension('ms-python.python');
+    const extension = extensions.getExtension('wubzbz.python');
     if (extension) {
         if (!extension.isActive) {
             console.log('Activating Python extension...');
@@ -48,7 +48,7 @@ async function activatePythonExtension() {
  * @returns The activated Python environments extension instance
  */
 async function activateEnvsExtension(): Promise<Extension<any> | undefined> {
-    const extension = extensions.getExtension('ms-python.vscode-python-envs');
+    const extension = extensions.getExtension('wubzbz.vscode-python-envs');
     if (extension) {
         if (!extension.isActive) {
             console.log('Activating Python Environments extension...');
